@@ -4,29 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateFormRequest extends FormRequest
+class UpdateFormRequest extends StoreFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    public function rules()
     {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'title' => 'sometimes|string|max:255',
-            'description' => 'nullable|string',
-            'method' => 'sometimes|string|in:GET,POST,PUT,PATCH,DELETE',
-            'action' => 'sometimes|string|max:255',
-            'is_active' => 'sometimes|boolean'
-        ];
+        return array_merge(parent::rules(), [
+            // Additional rules for update if needed
+        ]);
     }
 }

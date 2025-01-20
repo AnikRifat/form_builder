@@ -6,27 +6,29 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFormRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function rules()
     {
+        dd($this->all());
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'method' => 'required|string|in:GET,POST,PUT,PATCH,DELETE',
             'action' => 'required|string|max:255',
-            'is_active' => 'sometimes|boolean'
+            'is_active' => 'boolean',
+            'fields' => 'nullable|array',
+            'fields.*.type' => 'required|string|in:text,email,textarea,select,checkbox,radio',
+            'fields.*.name' => 'required|string|max:255',
+            'fields.*.label' => 'required|string|max:255',
+            'fields.*.placeholder' => 'nullable|string|max:255',
+            'fields.*.is_required' => 'boolean',
+            'fields.*.validation_rules' => 'nullable|array',
+            'fields.*.options' => 'nullable|array',
+            'fields.*.order' => 'required|integer'
         ];
     }
 }

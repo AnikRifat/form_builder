@@ -1,178 +1,168 @@
+<template>
+  <AuthenticatedLayout>
+    <template #header>
+      <h2 class="text-xl font-semibold leading-tight text-gray-800">
+        Form Builder
+      </h2>
+    </template>
+
+    <div class="py-12">
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+          <div class="p-6 bg-white border-b border-gray-200">
+            <div class="grid grid-cols-12 gap-6">
+              <!-- Field Palette -->
+              <div class="col-span-3">
+                <div class="space-y-4">
+                  <div
+                    v-for="field in fieldTypes"
+                    :key="field.type"
+                    class="p-4 rounded-lg border border-gray-200 cursor-move"
+                    draggable="true"
+                    @dragstart="onDragStart($event, field)"
+                  >
+                    <span class="text-sm font-medium">{{ field.label }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Canvas -->
+              <div class="col-span-9">
+                <div
+                  class="p-6 border border-dashed border-gray-300 rounded-lg min-h-[400px]"
+                  @drop="onDrop"
+                  @dragover.prevent
+                >
+                  <div
+                    v-for="(field, index) in form.fields"
+                    :key="index"
+                    class="p-4 mb-4 bg-gray-50 rounded-lg"
+                  >
+                    <div class="flex justify-between items-center">
+                      <div class="flex-1">
+                        <label class="block text-sm font-medium text-gray-700">
+                          {{ field.label }}
+                        </label>
+                        <component
+                          :is="getFieldComponent(field.type)"
+                          v-model="field.value"
+                          :field="field"
+                          class="mt-1"
+                        />
+                      </div>
+                      <button
+                        @click="removeField(index)"
+                        class="ml-4 text-red-600 hover:text-red-900"
+                      >
+                        <TrashIcon class="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-end mt-6 space-x-4">
+              <button
+                type="button"
+                @click="saveForm"
+                class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-blue-500 rounded-md border border-transparent transition hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 disabled:opacity-25"
+              >
+                Save Form
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </AuthenticatedLayout>
+</template>
+
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { Form, FormField } from '@/types/form'
-import { router } from '@inertiajs/vue3'
-import { useSortable } from '@vueuse/integrations/useSortable'
-
-const props = defineProps<{
-    form?: Form
-}>()
-
-const formData = ref<Form>(props.form || {
-    title: '',
-    description: '',
-    method: 'POST',
-    action: '/submit',
-    is_active: true,
-    fields: []
-})
+import { ref } from 'vue';
+import { router } from '@inertiajs/vue3';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { TrashIcon } from '@heroicons/vue/24/outline';
+import { Form, FormField } from '@/types/form';
 
 const fieldTypes = [
-    { value: 'text', label: 'Text Input' },
-    {value: 'email', label: 'Email Input' },
-    { value: 'textarea', label: 'Text Area' },
-    { value: 'select', label: 'Select' },
-    { value: 'checkbox', label: 'Checkbox' },
-    { value: 'radio', label: 'Radio Button' }
-]
+  { type: 'text', label: 'Text Input' },
+  { type: 'email', label: 'Email Input' },
+  { type: 'textarea', label: 'Text Area' },
+  { type: 'select', label: 'Select Box' },
+  { type: 'checkbox', label: 'Checkbox' },
+  { type: 'radio', label: 'Radio Button' },
+];
 
-const addField = () => {
-    formData.value.fields.push({
-        type: 'text',
-        name: `field_${formData.value.fields.length + 1}`,
-        label: 'New Field',
-        is_required: false,
-        order: formData.value.fields.length
-    })
-}
+const form = ref<Form>({
+  title: '',
+  description: '',
+  method: 'POST',
+  action: '/submit',
+  is_active: true,
+  fields: [],
+});
+
+const getFieldComponent = (type: string) => {
+  switch (type) {
+    case 'text':
+    case 'email':
+      return 'TextInput';
+    case 'textarea':
+      return 'Textarea';
+    case 'select':
+      return 'Select';
+    case 'checkbox':
+      return 'Checkbox';
+    case 'radio':
+      return 'Radio';
+    default:
+      return 'TextInput';
+  }
+};
+
+const onDragStart = (event: DragEvent, field: { type: string }) => {
+  event.dataTransfer?.setData('fieldType', field.type);
+};
+
+const onDrop = (event: DragEvent) => {
+  const fieldType = event.dataTransfer?.getData('fieldType');
+  if (fieldType) {
+    addField(fieldType);
+  }
+};
+
+const addField = (type: string) => {
+  const newField: FormField = {
+    type,
+    name: `field_${form.value.fields.length + 1}`,
+    label: 'New Field',
+    placeholder: '',
+    is_required: false,
+    validation_rules: {},
+    options: type === 'select' || type === 'radio' ? [] : undefined,
+    order: form.value.fields.length + 1,
+  };
+  form.value.fields.push(newField);
+};
 
 const removeField = (index: number) => {
-    formData.value.fields.splice(index, 1)
-}
+  form.value.fields.splice(index, 1);
+};
 
-const saveForm = () => {
-    if (formData.value.id) {
-        router.put(`/api/forms/${formData.value.id}`, formData.value)
-    } else {
-        router.post('/api/forms', formData.value)
-    }
-}
+const saveForm = async () => {
+  try {
+    await router.post(route('forms.store'), {
+      ...form.value,
+      fields: form.value.fields.map(field => ({
+        ...field,
+        validation_rules: field.validation_rules || {}
+      }))
+    });
 
-// Drag and drop functionality
-const fieldsContainer = ref<HTMLElement | null>(null)
-useSortable(fieldsContainer, formData.value.fields, {
-    handle: '.drag-handle',
-    animation: 150,
-    onUpdate: (e) => {
-        formData.value.fields.forEach((field, index) => {
-            field.order = index
-        })
-    }
-})
+    router.visit(route('forms.index'));
+  } catch (error) {
+    console.error('Error saving form:', error);
+  }
+};
 </script>
-
-<template>
-    <div class="p-6">
-        <h1 class="mb-6 text-2xl font-bold">
-            {{ formData.id ? 'Edit Form' : 'Create Form' }}
-        </h1>
-
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <!-- Form Settings -->
-            <div class="p-4 bg-white rounded-lg shadow">
-                <h2 class="mb-4 text-lg font-semibold">Form Settings</h2>
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block mb-1">Title</label>
-                        <input v-model="formData.title" type="text" class="w-full input">
-                    </div>
-
-                    <div>
-                        <label class="block mb-1">Description</label>
-                        <textarea v-model="formData.description" class="w-full input"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block mb-1">Method</label>
-                        <select v-model="formData.method" class="w-full input">
-                            <option value="GET">GET</option>
-                            <option value="POST">POST</option>
-                            <option value="PUT">PUT</option>
-                            <option value="PATCH">PATCH</option>
-                            <option value="DELETE">DELETE</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block mb-1">Action URL</label>
-                        <input v-model="formData.action" type="text" class="w-full input">
-                    </div>
-
-                    <div>
-                        <label class="flex items-center">
-                            <input v-model="formData.is_active" type="checkbox" class="mr-2">
-                            Active
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Form Fields -->
-            <div class="p-4 bg-white rounded-lg shadow">
-                <h2 class="mb-4 text-lg font-semibold">Form Fields</h2>
-
-                <div ref="fieldsContainer" class="space-y-4">
-                    <div v-for="(field, index) in formData.fields" :key="index" class="p-4 rounded border">
-                        <div class="flex justify-between items-center mb-4">
-                            <div class="flex gap-2 items-center">
-                                <button class="cursor-move drag-handle">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                    </svg>
-                                </button>
-                                <span class="font-medium">Field {{ index + 1 }}</span>
-                            </div>
-                            <button @click="removeField(index)" class="text-red-500 hover:text-red-700">
-                                Remove
-                            </button>
-                        </div>
-
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block mb-1">Type</label>
-                                <select v-model="field.type" class="w-full input">
-                                    <option v-for="type in fieldTypes" :value="type.value">
-                                        {{ type.label }}
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block mb-1">Label</label>
-                                <input v-model="field.label" type="text" class="w-full input">
-                            </div>
-
-                            <div>
-                                <label class="block mb-1">Name</label>
-                                <input v-model="field.name" type="text" class="w-full input">
-                            </div>
-
-                            <div>
-                                <label class="block mb-1">Placeholder</label>
-                                <input v-model="field.placeholder" type="text" class="w-full input">
-                            </div>
-
-                            <div>
-                                <label class="flex items-center">
-                                    <input v-model="field.is_required" type="checkbox" class="mr-2">
-                                    Required
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <button @click="addField" class="mt-4 btn-primary">
-                    Add Field
-                </button>
-            </div>
-        </div>
-
-        <div class="mt-6">
-            <button @click="saveForm" class="btn-primary">
-                Save Form
-            </button>
-        </div>
-    </div>
-</template>

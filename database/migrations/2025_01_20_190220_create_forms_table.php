@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('action')->default('/submit');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
