@@ -16,6 +16,9 @@
     },
     "dependencies": {
         "@inertiajs/vue3": "^1.2.0",
+        "@vuelidate/core": "^2.0.3",
+        "@vuelidate/validators": "^2.0.4",
+        "@vueuse/integrations": "^12.4.0",
         "vue": "^3.4.38"
     }
 }
