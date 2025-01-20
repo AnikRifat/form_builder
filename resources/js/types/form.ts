@@ -9,6 +9,7 @@ export interface FormField {
   options?: Record<string, any>;
   order: number;
   value?: any;
+  showOptions?: boolean;
 }
 
 export interface Form {
