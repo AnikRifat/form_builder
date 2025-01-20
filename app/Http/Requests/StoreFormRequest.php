@@ -13,7 +13,6 @@ class StoreFormRequest extends FormRequest
 
     public function rules()
     {
-        dd($this->all());
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',

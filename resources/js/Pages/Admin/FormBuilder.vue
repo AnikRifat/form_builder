@@ -10,6 +10,28 @@
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white border-b border-gray-200">
+            <div class="mb-6 space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Form Title</label>
+                <input
+                  v-model="form.title"
+                  type="text"
+                  class="mt-1 w-full input"
+                  placeholder="Enter form title"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Form Description</label>
+                <textarea
+                  v-model="form.description"
+                  class="mt-1 w-full input"
+                  placeholder="Enter form description"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+
             <div class="grid grid-cols-12 gap-6">
               <!-- Field Palette -->
               <div class="col-span-3">
@@ -151,13 +173,26 @@ const removeField = (index: number) => {
 };
 
 const saveForm = async () => {
-  try {
+    if (!form.value.title) {
+        alert('Please enter a form title');
+        return;
+    }
+
+    try {
+    const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
+
     await router.post(route('forms.store'), {
-      ...form.value,
-      fields: form.value.fields.map(field => ({
-        ...field,
-        validation_rules: field.validation_rules || {}
-      }))
+        ...form.value,
+        fields: form.value.fields.map(field => ({
+            ...field,
+            validation_rules: field.validation_rules || {}
+        }))
+    }, {
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
     });
 
     router.visit(route('forms.index'));

@@ -40,7 +40,6 @@ class FormController extends Controller
         if ($request->has('fields')) {
             $form->fields()->createMany($request->fields);
         }
-
         return redirect()->route('forms.index')
             ->with('success', 'Form created successfully');
     }
