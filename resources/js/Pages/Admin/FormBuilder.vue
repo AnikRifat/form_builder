@@ -270,7 +270,6 @@ const saveForm = async () => {
             }
         });
 
-        router.visit(route('forms.index'));
     } catch (error) {
         console.error('Error saving form:', error);
     }
