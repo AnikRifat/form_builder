@@ -176,7 +176,9 @@
                   </div>
                 </div>
 
-                <div class="flex justify-end mt-6 space-x-4">
+
+              </div>
+              <div class="flex justify-end mt-6 space-x-4">
                   <button
                     type="button"
                     @click="saveForm"
@@ -185,8 +187,7 @@
                     Save Form
                   </button>
                 </div>
-              </div>
-
+                
               <div v-if="isJsonEditorVisible" class="mt-4">
                 <textarea v-model="jsonConfig" class="p-4 w-full bg-gray-100 rounded" rows="20"></textarea>
                 <div class="flex justify-end mt-4 space-x-4">
