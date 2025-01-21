@@ -1,5 +1,6 @@
 export interface FormField {
   id?: number;
+  form_id?: number;
   type: string;
   name: string;
   label: string;

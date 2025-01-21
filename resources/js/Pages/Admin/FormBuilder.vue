@@ -189,9 +189,10 @@
 
               <div v-if="isJsonEditorVisible" class="mt-4">
                 <textarea v-model="jsonConfig" class="p-4 w-full bg-gray-100 rounded" rows="20"></textarea>
-                <div class="flex justify-end mt-4">
-                  <button @click="applyJsonConfig" class="px-4 py-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600">Apply</button>
+                <div class="flex justify-end mt-4 space-x-4">
+                  <button @click="resetJsonConfig" class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Reset</button>
                 </div>
+                <div v-if="jsonError" class="mt-4 text-red-500">{{ jsonError }}</div>
               </div>
             </div>
           </div>
@@ -258,20 +259,25 @@ const toggleJsonEditor = () => {
   }
 };
 
+const jsonConfig = ref('');
+const jsonError = ref('');
+
 const showJsonConfig = () => {
   const { id, created_at, updated_at, deleted_at, ...formWithoutTimestamps } = form.value;
   const fieldsWithoutTimestamps = formWithoutTimestamps.fields.map(field => {
-    const { id, created_at, updated_at, deleted_at, ...fieldWithoutTimestamps } = field;
+    const { id, created_at, updated_at, deleted_at, form_id, ...fieldWithoutTimestamps } = field;
     return fieldWithoutTimestamps;
   });
   jsonConfig.value = JSON.stringify({ ...formWithoutTimestamps, fields: fieldsWithoutTimestamps }, null, 2);
 };
 
-const jsonConfig = ref('');
+const resetJsonConfig = () => {
+  showJsonConfig();
+};
 
-const applyJsonConfig = () => {
+watch(jsonConfig, (newJson) => {
   try {
-    const newForm = JSON.parse(jsonConfig.value);
+    const newForm = JSON.parse(newJson);
     form.value = {
       ...newForm,
       id: form.value.id,
@@ -282,11 +288,11 @@ const applyJsonConfig = () => {
       ...field,
       id: newForm.fields[index]?.id || field.id,
     }));
-    toggleJsonEditor();
+    jsonError.value = '';
   } catch (error) {
-    alert('Invalid JSON configuration');
+    jsonError.value = 'Invalid JSON configuration';
   }
-};
+});
 
 const getFieldComponent = (type: string) => {
   switch (type) {
