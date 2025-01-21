@@ -28,7 +28,10 @@
                       Title
                     </th>
                     <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                      Description
+                      Method
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                      Action
                     </th>
                     <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                       Created At
@@ -44,7 +47,10 @@
                       {{ form.title }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                      {{ form.description }}
+                      {{ form.method }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      {{ form.action }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                       {{ formatDate(form.created_at) }}

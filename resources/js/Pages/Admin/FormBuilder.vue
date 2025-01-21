@@ -15,8 +15,17 @@
                     <input v-model="form.title" type="text" class="mt-1 w-full input" placeholder="Enter form title" required>
                   </div>
                   <div>
-                    <label class="block text-sm font-medium text-gray-700">Form Description</label>
-                    <textarea v-model="form.description" class="mt-1 w-full input" placeholder="Enter form description" rows="3"></textarea>
+                    <label class="block text-sm font-medium text-gray-700">Method</label>
+                    <select v-model="form.method" class="mt-1 w-full input" required>
+                      <option value="GET">GET</option>
+                      <option value="POST">POST</option>
+                      <option value="PUT">PUT</option>
+                      <option value="DELETE">DELETE</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Form Action</label>
+                    <input v-model="form.action" type="text" class="mt-1 w-full input" placeholder="Enter url for action" required>
                   </div>
                 </div>
 
@@ -187,8 +196,8 @@
     form.value = newForm || {
       title: '',
       description: '',
-      method: 'POST',
-      action: '/submit',
+      method: '',
+      action: '',
       is_active: true,
       fields: []
     };

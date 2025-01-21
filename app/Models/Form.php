@@ -12,7 +12,6 @@ class Form extends Model
 
     protected $fillable = [
         'title',
-        'description',
         'method',
         'action',
         'is_active'

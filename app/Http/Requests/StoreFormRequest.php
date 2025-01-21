@@ -15,7 +15,8 @@ class StoreFormRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'method' => 'required|string',
+            'action' => 'required|string',
             'is_active' => 'boolean',
             'fields' => 'nullable|array',
             'fields.*.type' => 'required|string|in:text,email,textarea,select,checkbox,radio',
