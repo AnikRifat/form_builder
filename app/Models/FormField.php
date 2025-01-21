@@ -17,14 +17,12 @@ class FormField extends Model
         'label',
         'placeholder',
         'is_required',
-        'validation_rules',
         'options',
         'order'
     ];
 
     protected $casts = [
         'is_required' => 'boolean',
-        'validation_rules' => 'array',
         'options' => 'array'
     ];
 

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('label');
             $table->string('placeholder')->nullable();
             $table->boolean('is_required')->default(false);
-            $table->json('validation_rules')->nullable();
             $table->json('options')->nullable();
             $table->integer('order')->default(0);
             $table->timestamps();

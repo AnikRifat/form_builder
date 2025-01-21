@@ -5,7 +5,7 @@ export interface FormField {
   label: string;
   placeholder?: string;
   is_required: boolean;
-  validation_rules?: Record<string, any>;
+  validation_rules?: any;
   options?: Record<string, any>;
   order: number;
   value?: any;

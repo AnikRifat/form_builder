@@ -19,7 +19,6 @@ class StoreFormFieldRequest extends FormRequest
             'label' => 'required|string|max:255',
             'placeholder' => 'nullable|string|max:255',
             'is_required' => 'boolean',
-            'validation_rules' => 'nullable|array',
             'options' => 'nullable|array',
             'order' => 'required|integer'
         ];

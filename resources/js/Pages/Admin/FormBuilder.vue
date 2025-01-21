@@ -103,6 +103,24 @@
                                 required
                               />
                             </div>
+                            <div class="space-y-1">
+                              <label class="block text-sm font-medium text-gray-700/80">Placeholder</label>
+                              <input
+                                v-model="field.placeholder"
+                                type="text"
+                                class="px-4 py-2.5 w-full text-sm rounded-xl border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                placeholder="Enter placeholder text"
+                              />
+                            </div>
+                            <div class="flex items-center space-x-2">
+                              <input
+                                v-model="field.is_required"
+                                type="checkbox"
+                                class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-blue-100"
+                              />
+                              <label class="block text-sm font-medium text-gray-700/80">Required</label>
+                            </div>
+
                             <component
                               :is="getFieldComponent(field.type)"
                               v-model="field.value"
@@ -273,12 +291,12 @@
       label: 'New Field',
       placeholder: '',
       is_required: false,
-      validation_rules: {},
       options: (type === 'select' || type === 'radio') ? [] : undefined,
       order: form.value.fields.length + 1,
       showOptions: type === 'select' || type === 'radio'
     };
     form.value.fields.push(newField);
+    updateFieldOrders();
   };
 
   const removeField = (index: number) => {
@@ -320,8 +338,7 @@
       await router[form.value.id ? 'put' : 'post'](url, {
         ...form.value,
         fields: form.value.fields.map(field => ({
-          ...field,
-          validation_rules: field.validation_rules || {}
+          ...field
         }))
       }, {
         headers: {
