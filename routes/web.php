@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return route('forms.index');
     })->name('dashboard');
 
     Route::apiResource('forms', FormController::class)->except(['show']);

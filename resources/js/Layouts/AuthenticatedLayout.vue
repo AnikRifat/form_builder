@@ -22,7 +22,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex items-center shrink-0">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('forms.index')">
                                     <ApplicationLogo
                                         class="block w-auto h-9 text-gray-800 fill-current"
                                     />
@@ -34,10 +34,10 @@ const showingNavigationDropdown = ref(false);
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
                                 <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    :href="route('forms.index')"
+                                    :active="route().current('forms.index')"
                                 >
-                                    Dashboard
+                                    Froms
                                 </NavLink>
                             </div>
                         </div>
