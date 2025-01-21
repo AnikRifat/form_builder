@@ -121,83 +121,94 @@
                                     <div class="p-6 border border-dashed border-gray-300 rounded-lg min-h-[400px]"
                                         @drop="onDrop($event, form.fields.length)" @dragover.prevent @dragenter.prevent>
                                         <div v-for="(field, index) in form.fields" :key="index"
-                                            class="relative p-4 mb-4 bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] transform hover:-translate-y-1 hover:scale-105 border border-white/20 hover:border-white/40"
+                                            class="relative mb-6 bg-white rounded-xl border border-gray-100 shadow-sm transition-all duration-300 ease-in-out hover:shadow-lg"
                                             draggable="true" @dragstart="onDragStart($event, field)" @dragover.prevent
                                             @drop="onDrop($event, index)">
-                                            <div class="absolute left-1 top-2 cursor-move">
-                                                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+
+                                            <!-- Centered Drag Handle -->
+                                            <div class="flex justify-center py-2 border-b border-gray-100 cursor-move">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="currentColor"
+                                                    class="text-gray-400 transition-colors hover:text-gray-600"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2 8a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                                                 </svg>
                                             </div>
-                                            <div class="flex justify-between items-start">
-                                                <div class="flex-1 space-x-2">
-                                                    <div class="flex justify-between items-center">
-                                                        <span
-                                                            class="inline-flex items-center px-2.5 py-0.5 ml-4 text-xs font-medium text-blue-800 bg-blue-100 rounded-full">
-                                                            <span>{{ field.type }}</span>
-                                                        </span>
-                                                        <button v-if="['select', 'radio'].includes(field.type)"
-                                                            @click="field.showOptions = !field.showOptions"
-                                                            class="text-sm text-blue-600 hover:text-blue-900">
-                                                            {{ field.showOptions ? 'Hide' : 'Edit' }} Options
-                                                        </button>
-                                                    </div>
-                                                    <div class="grid grid-cols-2 gap-4">
-                                                        <div class="space-y-1">
-                                                            <label
-                                                                class="block text-sm font-medium text-gray-700/80">Field
-                                                                Name</label>
-                                                            <input v-model="field.name" type="text"
-                                                                class="px-4 py-1.5 w-full text-sm rounded-md border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                                                                placeholder="Enter field name" required />
-                                                        </div>
-                                                        <div class="space-y-1">
-                                                            <label
-                                                                class="block text-sm font-medium text-gray-700/80">Field
-                                                                Label</label>
-                                                            <input v-model="field.label" type="text"
-                                                                class="px-4 py-1.5 w-full text-sm rounded-md border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                                                                placeholder="Enter field label" required />
-                                                        </div>
-                                                        <div class="space-y-1">
-                                                            <label
-                                                                class="block text-sm font-medium text-gray-700/80">Placeholder</label>
-                                                            <input v-model="field.placeholder" type="text"
-                                                                class="px-4 py-1.5 w-full text-sm rounded-md border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                                                                placeholder="Enter placeholder text" />
-                                                        </div>
-                                                        <div class="flex items-center space-x-2">
-                                                            <input v-model="field.is_required" type="checkbox"
-                                                                class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-blue-100" />
-                                                            <label
-                                                                class="block text-sm font-medium text-gray-700/80">Required</label>
-                                                        </div>
+
+                                            <div class="p-6">
+                                                <!-- Header with Type Badge and Options Button -->
+                                                <div class="flex justify-between items-center mb-6">
+                                                    <span
+                                                        class="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-700 bg-blue-50 rounded-full">
+                                                        {{ field.type }}
+                                                    </span>
+                                                    <button v-if="['select', 'radio'].includes(field.type)"
+                                                        @click="field.showOptions = !field.showOptions"
+                                                        class="text-sm font-medium text-blue-600 transition-colors hover:text-blue-800">
+                                                        {{ field.showOptions ? 'Hide' : 'Edit' }} Options
+                                                    </button>
+                                                </div>
+
+                                                <!-- Main Form Grid -->
+                                                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                                    <div class="space-y-2">
+                                                        <label class="block text-sm font-medium text-gray-700">Field
+                                                            Name</label>
+                                                        <input v-model="field.name" type="text"
+                                                            class="px-4 py-2 w-full text-sm rounded-lg border border-gray-200 transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                                            placeholder="Enter field name" required />
                                                     </div>
 
-                                                    <div v-if="['select', 'radio'].includes(field.type)"
-                                                        class="mt-4 space-y-2">
-                                                        <div v-for="(option, optionIndex) in field.options"
-                                                            :key="optionIndex" class="flex items-center space-x-2">
-                                                            <input v-model="option.value" type="text"
-                                                                class="flex-1 px-3 py-1.5 text-sm rounded-lg border border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                                                                placeholder="Option value" />
-                                                            <button @click="field.options.splice(optionIndex, 1)"
-                                                                class="p-1.5 text-red-500 hover:text-red-700">
-                                                                <TrashIcon class="w-4 h-4" />
-                                                            </button>
-                                                        </div>
-                                                        <button @click="field.options.push({ value: '' })"
-                                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100">
-                                                            <PlusIcon class="mr-1 w-4 h-4" />
-                                                            Add Option
-                                                        </button>
+                                                    <div class="space-y-2">
+                                                        <label class="block text-sm font-medium text-gray-700">Field
+                                                            Label</label>
+                                                        <input v-model="field.label" type="text"
+                                                            class="px-4 py-2 w-full text-sm rounded-lg border border-gray-200 transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                                            placeholder="Enter field label" required />
+                                                    </div>
+
+                                                    <div class="space-y-2">
+                                                        <label
+                                                            class="block text-sm font-medium text-gray-700">Placeholder</label>
+                                                        <input v-model="field.placeholder" type="text"
+                                                            class="px-4 py-2 w-full text-sm rounded-lg border border-gray-200 transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                                            placeholder="Enter placeholder text" />
+                                                    </div>
+
+                                                    <div class="flex items-center space-x-3">
+                                                        <input v-model="field.is_required" type="checkbox"
+                                                            class="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-blue-100" />
+                                                        <label class="text-sm font-medium text-gray-700">Required
+                                                            field</label>
                                                     </div>
                                                 </div>
+
+                                                <!-- Options Section -->
+                                                <div v-if="['select', 'radio'].includes(field.type) && field.showOptions"
+                                                    class="pt-6 mt-6 space-y-3 border-t">
+                                                    <div v-for="(option, optionIndex) in field.options"
+                                                        :key="optionIndex" class="flex items-center space-x-3">
+                                                        <input v-model="option.value" type="text"
+                                                            class="flex-1 px-4 py-2 text-sm rounded-lg border border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                                            placeholder="Option value" />
+                                                        <button @click="field.options.splice(optionIndex, 1)"
+                                                            class="p-2 text-red-500 rounded-lg transition-colors hover:text-red-700 hover:bg-red-50">
+                                                            <TrashIcon class="w-5 h-5" />
+                                                        </button>
+                                                    </div>
+                                                    <button @click="field.options.push({ value: '' })"
+                                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg transition-colors hover:bg-blue-100">
+                                                        <PlusIcon class="mr-2 w-4 h-4" />
+                                                        Add Option
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Delete Field Button -->
+                                            <div class="absolute top-4 right-4">
                                                 <button @click="removeField(index)"
-                                                    class="ml-4 text-red-600 hover:text-red-900">
+                                                    class="p-2 text-red-500 rounded-lg transition-colors hover:text-red-700 hover:bg-red-50">
                                                     <TrashIcon class="w-5 h-5" />
                                                 </button>
                                             </div>
