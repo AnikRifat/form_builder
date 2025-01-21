@@ -121,7 +121,7 @@
                               <label class="block text-sm font-medium text-gray-700/80">Required</label>
                             </div>
 
-                            <div v-show="field.showOptions &amp;&amp; ['select', 'radio'].includes(field.type)" class="mt-4 space-y-2">
+                            <div v-if="['select', 'radio'].includes(field.type)" class="mt-4 space-y-2">
                               <div v-for="(option, optionIndex) in field.options" :key="optionIndex" class="flex items-center space-x-2">
                                 <input
                                   v-model="option.value"
