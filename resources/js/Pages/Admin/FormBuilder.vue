@@ -1,5 +1,5 @@
 <template>
-    <div v-if="form &amp;&amp; form.title">
+    <div>
       <AuthenticatedLayout>
         <template #header>
           <h2 class="text-xl font-semibold leading-tight text-gray-800">Form Builder</h2>
@@ -205,17 +205,18 @@
   };
 
   const addField = (type: string) => {
-    const newField: FormField = {
-      type,
-      name: `field_${form.value.fields.length + 1}`,
-      label: 'New Field',
-      placeholder: '',
-      is_required: false,
-      validation_rules: {},
-      options: type === 'select' || type === 'radio' ? [] : undefined,
-      order: form.value.fields.length + 1,
-    };
-    form.value.fields.push(newField);
+      form.value.fields = form.value.fields || [];
+      const newField: FormField = {
+          type,
+          name: `field_${form.value.fields.length + 1}`,
+          label: 'New Field',
+          placeholder: '',
+          is_required: false,
+          validation_rules: {},
+          options: type === 'select' || type === 'radio' ? [] : undefined,
+          order: form.value.fields.length + 1,
+      };
+      form.value.fields.push(newField);
   };
 
   const removeField = (index: number) => {

@@ -27,7 +27,9 @@ class FormController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/FormBuilder');
+        return Inertia::render('Admin/FormBuilder', [
+            'form' => new Form(),
+        ]);
     }
 
     /**
