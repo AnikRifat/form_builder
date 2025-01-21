@@ -47,13 +47,18 @@
                   <div class="col-span-9">
                     <div
                       class="p-6 border border-dashed border-gray-300 rounded-lg min-h-[400px]"
-                      @drop="onDrop"
+                      @drop="onDrop($event, form.fields.length)"
                       @dragover.prevent
+                      @dragenter.prevent
                     >
                       <div
                         v-for="(field, index) in form.fields"
                         :key="index"
                         class="p-6 mb-4 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] transform hover:-translate-y-1 border border-white/20 hover:border-white/40"
+                        draggable="true"
+                        @dragstart="onDragStart($event, field)"
+                        @dragover.prevent
+                        @drop="onDrop($event, index)"
                       >
                         <div class="flex justify-between items-start">
                           <div class="flex-1 space-y-2">
@@ -215,14 +220,40 @@
     }
   };
 
-  const onDragStart = (event: DragEvent, field: { type: string }) => {
-    event.dataTransfer?.setData('fieldType', field.type);
+  const onDragStart = (event: DragEvent, field: { type: string } | FormField) => {
+    if ('name' in field) {
+      // This is a FormField being reordered
+      event.dataTransfer?.setData('fieldIndex', form.value.fields.indexOf(field).toString());
+      event.dataTransfer?.setData('action', 'reorder');
+    } else {
+      // This is a field type being added
+      event.dataTransfer?.setData('fieldType', field.type);
+      event.dataTransfer?.setData('action', 'add');
+    }
   };
 
-  const onDrop = (event: DragEvent) => {
-    const fieldType = event.dataTransfer?.getData('fieldType');
-    if (fieldType) {
-      addField(fieldType);
+  const updateFieldOrders = () => {
+    form.value.fields.forEach((field, index) => {
+      field.order = index + 1;
+    });
+  };
+
+  const onDrop = (event: DragEvent, targetIndex: number) => {
+    const action = event.dataTransfer?.getData('action');
+
+    if (action === 'reorder') {
+      const sourceIndex = parseInt(event.dataTransfer?.getData('fieldIndex') || '-1');
+      if (sourceIndex >= 0 && sourceIndex !== targetIndex) {
+        const [movedField] = form.value.fields.splice(sourceIndex, 1);
+        form.value.fields.splice(targetIndex, 0, movedField);
+        updateFieldOrders(); // Update order after reordering
+      }
+    } else if (action === 'add') {
+      const fieldType = event.dataTransfer?.getData('fieldType');
+      if (fieldType) {
+        addField(fieldType);
+        updateFieldOrders(); // Update order after adding
+      }
     }
   };
 
@@ -243,6 +274,7 @@
 
   const removeField = (index: number) => {
     form.value.fields.splice(index, 1);
+    updateFieldOrders(); // Update order after removing
   };
 
   const saveForm = async () => {
