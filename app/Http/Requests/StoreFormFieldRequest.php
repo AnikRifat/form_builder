@@ -20,7 +20,7 @@ class StoreFormFieldRequest extends FormRequest
             'placeholder' => 'nullable|string|max:255',
             'is_required' => 'boolean',
             'options' => 'nullable|array',
-            'order' => 'required|integer'
+            'order' => 'required|integer',
         ];
     }
 }

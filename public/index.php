@@ -8,49 +8,47 @@ define('LARAVEL_START', microtime(true));
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
-if (!function_exists('dd')) {
+if (! function_exists('dd')) {
     /**
      * Dump the passed variables and end the script.
      *
-     * @param mixed $args
-     *
+     * @param  mixed  $args
      * @return void
      */
-     function dd(...$args)
-     {
-         header('Access-Control-Allow-Origin: *');
-         header('Access-Control-Allow-Methods: *');
-         header('Access-Control-Allow-Headers: *');
+    function dd(...$args)
+    {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: *');
+        header('Access-Control-Allow-Headers: *');
 
-         http_response_code(500);
+        http_response_code(500);
 
-         foreach ($args as $x) {
-            (new Symfony\Component\VarDumper\VarDumper())->dump($x);
-         }
+        foreach ($args as $x) {
+            (new Symfony\Component\VarDumper\VarDumper)->dump($x);
+        }
 
-        die(1);
+        exit(1);
     }
-}if (!function_exists('dd')) {
+}if (! function_exists('dd')) {
     /**
      * Dump the passed variables and end the script.
      *
-     * @param mixed $args
-     *
+     * @param  mixed  $args
      * @return void
      */
-     function dd(...$args)
-     {
-         header('Access-Control-Allow-Origin: *');
-         header('Access-Control-Allow-Methods: *');
-         header('Access-Control-Allow-Headers: *');
+    function dd(...$args)
+    {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: *');
+        header('Access-Control-Allow-Headers: *');
 
-         http_response_code(500);
+        http_response_code(500);
 
-         foreach ($args as $x) {
-            (new Symfony\Component\VarDumper\VarDumper())->dump($x);
-         }
+        foreach ($args as $x) {
+            (new Symfony\Component\VarDumper\VarDumper)->dump($x);
+        }
 
-        die(1);
+        exit(1);
     }
 }
 // Register the Composer autoloader...

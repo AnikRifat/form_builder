@@ -25,7 +25,7 @@ class StoreFormRequest extends FormRequest
             'fields.*.placeholder' => 'nullable|string|max:255',
             'fields.*.is_required' => 'boolean',
             'fields.*.options' => 'nullable|array',
-            'fields.*.order' => 'required|integer'
+            'fields.*.order' => 'required|integer',
         ];
     }
 }

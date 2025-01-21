@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\FormFieldController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::inertia('/', 'Home')->name('home');
@@ -40,4 +40,3 @@ Route::middleware('auth')->group(function () {
             ->except(['show']);
     });
 });
-

@@ -1,95 +1,96 @@
 <?php
 
- namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
- use Inertia\Inertia;
- use App\Models\Form;
- use Illuminate\Http\Request;
- use App\Http\Requests\StoreFormRequest;
- use App\Http\Requests\UpdateFormRequest;
+use App\Http\Requests\StoreFormRequest;
+use App\Http\Requests\UpdateFormRequest;
+use App\Models\Form;
+use Inertia\Inertia;
 
- class FormController extends Controller
- {
-     /**
-      * Display a listing of the forms.
-      */
-     public function index()
-     {
-         return Inertia::render('Admin/FormList', [
-             'forms' => Form::with('fields')
-                 ->orderBy('created_at', 'desc')
-                 ->get()
-         ]);
-     }
+class FormController extends Controller
+{
+    /**
+     * Display a listing of the forms.
+     */
+    public function index()
+    {
+        return Inertia::render('Admin/FormList', [
+            'forms' => Form::with('fields')
+                ->orderBy('created_at', 'desc')
+                ->get(),
+        ]);
+    }
 
-     /**
-      * Show the form for creating a new form.
-      */
-     public function create()
-     {
-         return Inertia::render('Admin/FormBuilder', [
-             'form' => new Form(['method' => 'POST', 'action' => '/submit']),
-         ]);
-     }
+    /**
+     * Show the form for creating a new form.
+     */
+    public function create()
+    {
+        return Inertia::render('Admin/FormBuilder', [
+            'form' => new Form(['method' => 'POST', 'action' => '/submit']),
+        ]);
+    }
 
-     /**
-      * Store a newly created form in storage.
-      */
-     public function store(StoreFormRequest $request)
-     {
-         $form = Form::create($request->validated());
+    /**
+     * Store a newly created form in storage.
+     */
+    public function store(StoreFormRequest $request)
+    {
+        $form = Form::create($request->validated());
 
-         if ($request->has('fields')) {
-             $form->fields()->createMany($request->fields);
-         }
-         return redirect()->route('forms.index')
-             ->with('success', 'Form created successfully');
-     }
+        if ($request->has('fields')) {
+            $form->fields()->createMany($request->fields);
+        }
 
-     /**
-      * Display the specified form.
-      */
-     public function show(Form $form)
-     {
-         return Inertia::render('Admin/FormBuilder', [
-             'form' => $form->load('fields')
-         ]);
-     }
+        return redirect()->route('forms.index')
+            ->with('success', 'Form created successfully');
+    }
 
-     /**
-      * Show the form for editing the specified form.
-      */
-     public function edit(Form $form)
-     {
-         return Inertia::render('Admin/FormBuilder', [
-             'form' => $form->load('fields')
-         ]);
-     }
+    /**
+     * Display the specified form.
+     */
+    public function show(Form $form)
+    {
+        return Inertia::render('Admin/FormBuilder', [
+            'form' => $form->load('fields'),
+        ]);
+    }
 
-     /**
-      * Update the specified form in storage.
-      */
-     public function update(UpdateFormRequest $request, Form $form)
-     {
-         $form->update($request->validated());
+    /**
+     * Show the form for editing the specified form.
+     */
+    public function edit(Form $form)
+    {
+        return Inertia::render('Admin/FormBuilder', [
+            'form' => $form->load('fields'),
+        ]);
+    }
 
-         // Sync form fields
-         if ($request->has('fields')) {
-             $form->fields()->delete();
-             $form->fields()->createMany($request->fields);
-         }
+    /**
+     * Update the specified form in storage.
+     */
+    public function update(UpdateFormRequest $request, Form $form)
+    {
+        $form->update($request->validated());
 
-         return redirect()->route('forms.index')
-             ->with('success', 'Form updated successfully');
-     }
+        // Sync form fields
+        if ($request->has('fields')) {
+            $form->fields()->delete();
+            $form->fields()->createMany($request->fields);
+        }
 
-     /**
-      * Remove the specified form from storage.
-      */
-     public function destroy(Form $form)
-     {
-         $form->delete();
-         return redirect()->route('forms.index')
-             ->with('success', 'Form deleted successfully');
-     }
- }
+        return redirect()->route('forms.index')
+            ->with('success', 'Form updated successfully');
+    }
+
+    /**
+     * Remove the specified form from storage.
+     */
+    public function destroy(Form $form)
+    {
+        $form->delete();
+
+        return redirect()->route('forms.index')
+            ->with('success', 'Form deleted successfully');
+    }
+}

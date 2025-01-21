@@ -14,11 +14,11 @@ class Form extends Model
         'title',
         'method',
         'action',
-        'is_active'
+        'is_active',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
     ];
 
     public function fields(): HasMany

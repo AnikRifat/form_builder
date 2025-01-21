@@ -18,12 +18,12 @@ class FormField extends Model
         'placeholder',
         'is_required',
         'options',
-        'order'
+        'order',
     ];
 
     protected $casts = [
         'is_required' => 'boolean',
-        'options' => 'array'
+        'options' => 'array',
     ];
 
     public function form(): BelongsTo
