@@ -36,7 +36,7 @@
                       <div
                         v-for="field in fieldTypes"
                         :key="field.type"
-                        class="p-4 bg-white rounded-lg shadow-sm transition-all duration-200 cursor-move hover:shadow-md hover:bg-gray-50 hover:-translate-y-0.5"
+                        class="p-4 bg-white rounded-lg shadow-sm transition-all duration-200 cursor-move hover:shadow-md hover:bg-gray-50 hover:-translate-y-0.5 hover:scale-105"
                         draggable="true"
                         @dragstart="onDragStart($event, field)"
                       >
@@ -63,7 +63,7 @@
                       <div
                         v-for="(field, index) in form.fields"
                         :key="index"
-                        class="p-6 mb-4 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] transform hover:-translate-y-1 border border-white/20 hover:border-white/40"
+                        class="p-6 mb-4 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] transform hover:-translate-y-1 hover:scale-105 border border-white/20 hover:border-white/40"
                         draggable="true"
                         @dragstart="onDragStart($event, field)"
                         @dragover.prevent
@@ -120,13 +120,6 @@
                               />
                               <label class="block text-sm font-medium text-gray-700/80">Required</label>
                             </div>
-
-                            <component
-                              :is="getFieldComponent(field.type)"
-                              v-model="field.value"
-                              :field="field"
-                              class="mt-1"
-                            />
 
                             <div v-show="field.showOptions &amp;&amp; ['select', 'radio'].includes(field.type)" class="mt-4 space-y-2">
                               <div v-for="(option, optionIndex) in field.options" :key="optionIndex" class="flex items-center space-x-2">
