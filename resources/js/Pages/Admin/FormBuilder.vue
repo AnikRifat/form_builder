@@ -67,17 +67,22 @@
                       <div
                         v-for="(field, index) in form.fields"
                         :key="index"
-                        class="p-4 mb-4 bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] transform hover:-translate-y-1 hover:scale-105 border border-white/20 hover:border-white/40"
+                        class="relative p-4 mb-4 bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] transform hover:-translate-y-1 hover:scale-105 border border-white/20 hover:border-white/40"
                         draggable="true"
                         @dragstart="onDragStart($event, field)"
                         @dragover.prevent
                         @drop="onDrop($event, index)"
                       >
+                        <div class="absolute left-1 top-2 cursor-move">
+                          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                          </svg>
+                        </div>
                         <div class="flex justify-between items-start">
-                          <div class="flex-1 space-y-2">
+                          <div class="flex-1 space-x-2">
                             <div class="flex justify-between items-center">
-                              <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium text-blue-800 bg-blue-100 rounded-full">
-                                {{ field.type }}
+                              <span class="inline-flex items-center px-2.5 py-0.5 ml-4 text-xs font-medium text-blue-800 bg-blue-100 rounded-full">
+                                <span>{{ field.type }}</span>
                               </span>
                               <button
                                 v-if="['select', 'radio'].includes(field.type)"
