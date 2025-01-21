@@ -10,6 +10,9 @@ export interface FormField {
   order: number;
   value?: any;
   showOptions?: boolean;
+  created_at?: string;
+  updated_at?: string;
+  deleted_at?: string;
 }
 
 export interface Form {
@@ -22,6 +25,7 @@ export interface Form {
   fields: FormField[];
   created_at?: string;
   updated_at?: string;
+  deleted_at?: string;
 }
 
 export interface FormBuilderState {

@@ -3,13 +3,22 @@
     <AuthenticatedLayout>
       <template #header>
         <h2 class="text-xl font-semibold leading-tight text-gray-800">Form Builder</h2>
+        <div class="flex justify-end mt-4 space-x-4">
+          <button
+            type="button"
+            @click="toggleJsonEditor"
+            class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-green-500 rounded-md border border-transparent transition hover:bg-green-600 active:bg-green-700 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-200 disabled:opacity-25"
+          >
+            {{ isJsonEditorVisible ? 'Edit Manually' : 'Configure JSON' }}
+          </button>
+        </div>
       </template>
       <div class="py-12 min-h-screen bg-gray-50">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div class="overflow-hidden bg-white shadow-xl sm:rounded-2xl">
             <div class="p-8 bg-white">
               <h1 class="mb-8 text-3xl font-bold text-gray-900">Form Builder</h1>
-              <div class="mb-6 space-y-4">
+              <div v-if="!isJsonEditorVisible" class="mb-6 space-y-4">
                 <div class="p-6 bg-white rounded-lg shadow-md">
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="px-3 mb-6 w-full md:w-1/3 md:mb-0">
@@ -33,7 +42,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-12 gap-6">
+              <div v-if="!isJsonEditorVisible" class="grid grid-cols-12 gap-6">
                 <!-- Field Palette -->
                 <div class="col-span-3">
                   <div class="space-y-4">
@@ -175,13 +184,13 @@
                   >
                     Save Form
                   </button>
-                  <button
-                    type="button"
-                    @click="showJsonConfig"
-                    class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-green-500 rounded-md border border-transparent transition hover:bg-green-600 active:bg-green-700 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-200 disabled:opacity-25"
-                  >
-                    Configure JSON
-                  </button>
+                </div>
+              </div>
+
+              <div v-if="isJsonEditorVisible" class="mt-4">
+                <textarea v-model="jsonConfig" class="p-4 w-full bg-gray-100 rounded" rows="20"></textarea>
+                <div class="flex justify-end mt-4">
+                  <button @click="applyJsonConfig" class="px-4 py-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600">Apply</button>
                 </div>
               </div>
             </div>
@@ -189,20 +198,6 @@
         </div>
       </div>
     </AuthenticatedLayout>
-  </div>
-
-  <div v-if="isJsonModalVisible" class="flex fixed inset-0 justify-center items-center bg-gray-600 bg-opacity-50">
-    <div class="p-6 w-full max-w-3xl bg-white rounded-lg shadow-lg">
-      <h2 class="mb-4 text-xl font-semibold">JSON Configuration</h2>
-      <pre class="overflow-auto p-4 max-h-96 bg-gray-100 rounded">{{ jsonConfig }}</pre>
-      <div class="flex justify-end mt-4">
-        <button @click="closeJsonModal" class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Close</button>
-        <button @click="applyJsonConfig" class="px-4 py-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600">Apply</button>
-      </div>
-      <div class="mt-4">
-        <textarea v-model="jsonConfig" class="p-4 w-full bg-gray-100 rounded" rows="10"></textarea>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -254,13 +249,44 @@ watch(() => props.form, (newForm) => {
   });
 }, { immediate: true });
 
-// Ensure form fields are correctly displayed
-const displayFields = computed(() => {
-  return form.value.fields.map(field => ({
-    ...field,
-    showOptions: Boolean(field.options?.length)
-  }));
-});
+const isJsonEditorVisible = ref(false);
+
+const toggleJsonEditor = () => {
+  isJsonEditorVisible.value = !isJsonEditorVisible.value;
+  if (isJsonEditorVisible.value) {
+    showJsonConfig();
+  }
+};
+
+const showJsonConfig = () => {
+  const { id, created_at, updated_at, deleted_at, ...formWithoutTimestamps } = form.value;
+  const fieldsWithoutTimestamps = formWithoutTimestamps.fields.map(field => {
+    const { id, created_at, updated_at, deleted_at, ...fieldWithoutTimestamps } = field;
+    return fieldWithoutTimestamps;
+  });
+  jsonConfig.value = JSON.stringify({ ...formWithoutTimestamps, fields: fieldsWithoutTimestamps }, null, 2);
+};
+
+const jsonConfig = ref('');
+
+const applyJsonConfig = () => {
+  try {
+    const newForm = JSON.parse(jsonConfig.value);
+    form.value = {
+      ...newForm,
+      id: form.value.id,
+      created_at: form.value.created_at,
+      updated_at: form.value.updated_at,
+    };
+    form.value.fields = form.value.fields.map((field, index) => ({
+      ...field,
+      id: newForm.fields[index]?.id || field.id,
+    }));
+    toggleJsonEditor();
+  } catch (error) {
+    alert('Invalid JSON configuration');
+  }
+};
 
 const getFieldComponent = (type: string) => {
   switch (type) {
@@ -387,42 +413,5 @@ const saveForm = async () => {
 
 const sanitizeFieldName = (fieldName: string): string => {
   return fieldName.replace(/[^a-zA-Z0-9_]/g, '_');
-};
-
-const showJsonConfig = () => {
-  const { id, created_at, updated_at, deleted_at, ...formWithoutTimestamps } = form.value;
-  const fieldsWithoutTimestamps = formWithoutTimestamps.fields.map(field => {
-    const { id, created_at, updated_at, deleted_at, ...fieldWithoutTimestamps } = field;
-    return fieldWithoutTimestamps;
-  });
-  jsonConfig.value = JSON.stringify({ ...formWithoutTimestamps, fields: fieldsWithoutTimestamps }, null, 2);
-  isJsonModalVisible.value = true;
-};
-
-const isJsonModalVisible = ref(false);
-
-const closeJsonModal = () => {
-  isJsonModalVisible.value = false;
-};
-
-const jsonConfig = ref('');
-
-const applyJsonConfig = () => {
-  try {
-    const newForm = JSON.parse(jsonConfig.value);
-    form.value = {
-      ...newForm,
-      id: form.value.id,
-      created_at: form.value.created_at,
-      updated_at: form.value.updated_at,
-    };
-    form.value.fields = form.value.fields.map((field, index) => ({
-      ...field,
-      id: newForm.fields[index]?.id || field.id,
-    }));
-    closeJsonModal();
-  } catch (error) {
-    alert('Invalid JSON configuration');
-  }
 };
 </script>
