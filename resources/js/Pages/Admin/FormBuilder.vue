@@ -194,16 +194,20 @@
   <div v-if="isJsonModalVisible" class="flex fixed inset-0 justify-center items-center bg-gray-600 bg-opacity-50">
     <div class="p-6 w-full max-w-3xl bg-white rounded-lg shadow-lg">
       <h2 class="mb-4 text-xl font-semibold">JSON Configuration</h2>
-      <pre class="overflow-auto p-4 max-h-96 bg-gray-100 rounded">{{ JSON.stringify(form, null, 2) }}</pre>
+      <pre class="overflow-auto p-4 max-h-96 bg-gray-100 rounded">{{ jsonConfig }}</pre>
       <div class="flex justify-end mt-4">
         <button @click="closeJsonModal" class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Close</button>
+        <button @click="applyJsonConfig" class="px-4 py-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600">Apply</button>
+      </div>
+      <div class="mt-4">
+        <textarea v-model="jsonConfig" class="p-4 w-full bg-gray-100 rounded" rows="10"></textarea>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, watch } from 'vue';
+import { ref, defineProps, watch, computed } from 'vue';
 import { router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { TrashIcon, PlusIcon } from '@heroicons/vue/24/outline';
@@ -248,6 +252,14 @@ watch(() => props.form, (newForm) => {
   form.value.fields.forEach(field => {
     field.showOptions = Boolean(field.options?.length);
   });
+}, { immediate: true });
+
+// Ensure form fields are correctly displayed
+const displayFields = computed(() => {
+  return form.value.fields.map(field => ({
+    ...field,
+    showOptions: Boolean(field.options?.length)
+  }));
 });
 
 const getFieldComponent = (type: string) => {
@@ -378,6 +390,12 @@ const sanitizeFieldName = (fieldName: string): string => {
 };
 
 const showJsonConfig = () => {
+  const { id, created_at, updated_at, deleted_at, ...formWithoutTimestamps } = form.value;
+  const fieldsWithoutTimestamps = formWithoutTimestamps.fields.map(field => {
+    const { id, created_at, updated_at, deleted_at, ...fieldWithoutTimestamps } = field;
+    return fieldWithoutTimestamps;
+  });
+  jsonConfig.value = JSON.stringify({ ...formWithoutTimestamps, fields: fieldsWithoutTimestamps }, null, 2);
   isJsonModalVisible.value = true;
 };
 
@@ -385,5 +403,26 @@ const isJsonModalVisible = ref(false);
 
 const closeJsonModal = () => {
   isJsonModalVisible.value = false;
+};
+
+const jsonConfig = ref('');
+
+const applyJsonConfig = () => {
+  try {
+    const newForm = JSON.parse(jsonConfig.value);
+    form.value = {
+      ...newForm,
+      id: form.value.id,
+      created_at: form.value.created_at,
+      updated_at: form.value.updated_at,
+    };
+    form.value.fields = form.value.fields.map((field, index) => ({
+      ...field,
+      id: newForm.fields[index]?.id || field.id,
+    }));
+    closeJsonModal();
+  } catch (error) {
+    alert('Invalid JSON configuration');
+  }
 };
 </script>
