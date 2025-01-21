@@ -10,22 +10,26 @@
               <div class="p-8 bg-white">
                 <h1 class="mb-8 text-3xl font-bold text-gray-900">Form Builder</h1>
                 <div class="mb-6 space-y-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Form Title</label>
-                    <input v-model="form.title" type="text" class="mt-1 w-full input" placeholder="Enter form title" required>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Method</label>
-                    <select v-model="form.method" class="mt-1 w-full input" required>
-                      <option value="GET">GET</option>
-                      <option value="POST">POST</option>
-                      <option value="PUT">PUT</option>
-                      <option value="DELETE">DELETE</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700">Form Action</label>
-                    <input v-model="form.action" type="text" class="mt-1 w-full input" placeholder="Enter url for action" required>
+                  <div class="p-6 bg-white rounded-lg shadow-md">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="px-3 mb-6 w-full md:w-1/3 md:mb-0">
+                        <label class="block text-sm font-medium text-gray-700">Form Title</label>
+                        <input v-model="form.title" type="text" class="px-4 py-2 mt-1 w-full rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter form title" required>
+                      </div>
+                      <div class="px-3 mb-6 w-full md:w-1/3 md:mb-0">
+                        <label class="block text-sm font-medium text-gray-700">Method</label>
+                        <select v-model="form.method" class="px-4 py-2 mt-1 w-full rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                          <option value="GET">GET</option>
+                          <option value="POST">POST</option>
+                          <option value="PUT">PUT</option>
+                          <option value="DELETE">DELETE</option>
+                        </select>
+                      </div>
+                      <div class="px-3 mb-6 w-full md:w-1/3 md:mb-0">
+                        <label class="block text-sm font-medium text-gray-700">Form Action</label>
+                        <input v-model="form.action" type="text" class="px-4 py-2 mt-1 w-full rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter url for action" required>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -63,7 +67,7 @@
                       <div
                         v-for="(field, index) in form.fields"
                         :key="index"
-                        class="p-6 mb-4 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] transform hover:-translate-y-1 hover:scale-105 border border-white/20 hover:border-white/40"
+                        class="p-4 mb-4 bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] transform hover:-translate-y-1 hover:scale-105 border border-white/20 hover:border-white/40"
                         draggable="true"
                         @dragstart="onDragStart($event, field)"
                         @dragover.prevent
@@ -83,42 +87,44 @@
                                 {{ field.showOptions ? 'Hide' : 'Edit' }} Options
                               </button>
                             </div>
-                            <div class="space-y-1">
-                              <label class="block text-sm font-medium text-gray-700/80">Field Name</label>
-                              <input
-                                v-model="field.name"
-                                type="text"
-                                class="px-4 py-2.5 w-full text-sm rounded-xl border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                                placeholder="Enter field name"
-                                required
-                              />
-                            </div>
-                            <div class="space-y-1">
-                              <label class="block text-sm font-medium text-gray-700/80">Field Label</label>
-                              <input
-                                v-model="field.label"
-                                type="text"
-                                class="px-4 py-2.5 w-full text-sm rounded-xl border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                                placeholder="Enter field label"
-                                required
-                              />
-                            </div>
-                            <div class="space-y-1">
-                              <label class="block text-sm font-medium text-gray-700/80">Placeholder</label>
-                              <input
-                                v-model="field.placeholder"
-                                type="text"
-                                class="px-4 py-2.5 w-full text-sm rounded-xl border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                                placeholder="Enter placeholder text"
-                              />
-                            </div>
-                            <div class="flex items-center space-x-2">
-                              <input
-                                v-model="field.is_required"
-                                type="checkbox"
-                                class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-blue-100"
-                              />
-                              <label class="block text-sm font-medium text-gray-700/80">Required</label>
+                            <div class="grid grid-cols-2 gap-4">
+                              <div class="space-y-1">
+                                <label class="block text-sm font-medium text-gray-700/80">Field Name</label>
+                                <input
+                                  v-model="field.name"
+                                  type="text"
+                                  class="px-4 py-1.5 w-full text-sm rounded-md border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                  placeholder="Enter field name"
+                                  required
+                                />
+                              </div>
+                              <div class="space-y-1">
+                                <label class="block text-sm font-medium text-gray-700/80">Field Label</label>
+                                <input
+                                  v-model="field.label"
+                                  type="text"
+                                  class="px-4 py-1.5 w-full text-sm rounded-md border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                  placeholder="Enter field label"
+                                  required
+                                />
+                              </div>
+                              <div class="space-y-1">
+                                <label class="block text-sm font-medium text-gray-700/80">Placeholder</label>
+                                <input
+                                  v-model="field.placeholder"
+                                  type="text"
+                                  class="px-4 py-1.5 w-full text-sm rounded-md border backdrop-blur-sm transition-all duration-200 outline-none bg-white/50 border-gray-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                                  placeholder="Enter placeholder text"
+                                />
+                              </div>
+                              <div class="flex items-center space-x-2">
+                                <input
+                                  v-model="field.is_required"
+                                  type="checkbox"
+                                  class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-blue-100"
+                                />
+                                <label class="block text-sm font-medium text-gray-700/80">Required</label>
+                              </div>
                             </div>
 
                             <div v-if="['select', 'radio'].includes(field.type)" class="mt-4 space-y-2">
