@@ -25,4 +25,12 @@ class Form extends Model
     {
         return $this->hasMany(FormField::class)->orderBy('order');
     }
+
+    public static function getFormConfig()
+    {
+        // Assuming the form configuration is stored in a JSON field in the database
+        return self::select('title', 'method', 'action', 'is_active', 'config')
+            ->with('fields')
+            ->get();
+    }
 }

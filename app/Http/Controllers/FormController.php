@@ -93,4 +93,26 @@ class FormController extends Controller
         return redirect()->route('forms.index')
             ->with('success', 'Form deleted successfully');
     }
+
+    /**
+     * Display the specified form details.
+     */
+    public function view(Form $form)
+    {
+        return Inertia::render('Admin/FormDisplay', [
+            'form' => $form->load('fields'),
+            'config' => $form->config // Assuming there's a config field in the Form model
+        ]);
+    }
+
+    /**
+     * Get the form configuration.
+     */
+    public function getFormConfig()
+    {
+        // Assuming there's a method to get the form configuration
+        $config = Form::getFormConfig();
+
+        return response()->json($config);
+    }
 }

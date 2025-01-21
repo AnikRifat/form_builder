@@ -12,7 +12,19 @@ createInertiaApp({
     resolve: (name) => {
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
         let page = pages[`./Pages/${name}.vue`];
-        
+
+        if (!page) {
+            console.error(`Page not found: ${name}`);
+            return null;
+        }
+
+        console.log(`Imported page: ${name}`, page);
+
+        if (!page.default) {
+            console.error(`Page default export not found: ${name}`);
+            return null;
+        }
+
         page.default.layout = page.default.layout || Main;
         return page;
     },

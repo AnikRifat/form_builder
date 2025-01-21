@@ -57,6 +57,12 @@
                     </td>
                     <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
                       <Link
+                        :href="route('forms.view', form.id)"
+                        class="mr-4 text-green-600 hover:text-green-900"
+                      >
+                        View
+                      </Link>
+                      <Link
                         :href="route('forms.edit', form.id)"
                         class="mr-4 text-blue-600 hover:text-blue-900"
                       >

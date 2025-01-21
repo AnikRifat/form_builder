@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [FormController::class, 'create'])->name('forms.create');
         Route::post('/', [FormController::class, 'store'])->name('forms.store');
         Route::get('/{form}', [FormController::class, 'show'])->name('forms.show');
+        Route::get('/{form}/view', [FormController::class, 'view'])->name('forms.view');
         Route::get('/{form}/edit', [FormController::class, 'edit'])->name('forms.edit');
         Route::put('/{form}', [FormController::class, 'update'])->name('forms.update');
         Route::delete('/{form}', [FormController::class, 'destroy'])->name('forms.destroy');
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
     // API Routes
     Route::prefix('api')->group(function () {
         // API routes here
+        Route::get('/forms/config', [FormController::class, 'getFormConfig'])->name('api.forms.config');
     });
 
     Route::get('/dashboard', function () {
