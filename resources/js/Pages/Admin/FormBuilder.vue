@@ -65,7 +65,8 @@
                                         <div class="space-y-4">
                                             <div v-for="field in fieldTypes" :key="field.type"
                                                 class="p-4 bg-white rounded-lg shadow-sm transition-all duration-200 cursor-move hover:shadow-md hover:bg-gray-50 hover:-translate-y-0.5 hover:scale-105"
-                                                draggable="true" @dragstart="onDragStart($event, field)">
+                                                draggable="true" @dragstart="onDragStart($event, field)"
+                                                @dragend="onDragEnd" @dragover.prevent>
                                                 <div class="flex items-center space-x-3">
                                                     <div
                                                         class="flex justify-center items-center w-8 h-8 bg-blue-50 rounded-lg">
@@ -83,9 +84,9 @@
                                                             fill="currentColor" class="bi bi-check2-square"
                                                             viewBox="0 0 16 16">
                                                             <path
-                                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5z" />
+                                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 1 .5.5h10a.5.5 0 0 1 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5z" />
                                                             <path
-                                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5z" />
+                                                                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 1 .5.5h10a.5.5 0 0 1 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5z" />
                                                             <path
                                                                 d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0" />
                                                         </svg>
@@ -113,7 +114,7 @@
                                                             fill="currentColor" class="bi bi-check-all"
                                                             viewBox="0 0 16 16">
                                                             <path
-                                                                d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z" />
+                                                                d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8 9.583l6.39-6.39a.75.75 0 1 1 1.06 1.06l-2.094 2.093z" />
                                                         </svg>
 
                                                         <svg v-if="field.type === 'text'"
@@ -121,7 +122,7 @@
                                                             fill="currentColor" class="bi bi-card-text"
                                                             viewBox="0 0 16 16">
                                                             <path
-                                                                d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
+                                                                d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 1 1.5 14h13a1.5 1.5 0 0 1 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
                                                             <path
                                                                 d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8m0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5" />
                                                         </svg>
@@ -142,7 +143,7 @@
                                             <div v-for="(field, index) in form.fields" :key="index"
                                                 class="relative mb-4 bg-white rounded-lg border border-gray-200 transition-all duration-200 hover:border-blue-200"
                                                 draggable="true" @dragstart="onDragStart($event, field)"
-                                                @dragover.prevent @drop="onDrop($event, index)">
+                                                @dragend="onDragEnd" @dragover.prevent @drop="onDrop($event, index)">
 
                                                 <!-- Simple Header with Drag Handle and Type -->
                                                 <div
@@ -152,7 +153,7 @@
                                                             fill="currentColor" class="text-gray-400 cursor-move"
                                                             viewBox="0 0 16 16">
                                                             <path
-                                                                d="M2 8a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                                                d="M2 8a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2m3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                                                         </svg>
                                                         <span class="text-sm font-medium text-gray-600">{{ field.type
                                                             }}</span>
@@ -354,32 +355,19 @@ watch(jsonConfig, (newJson) => {
     }
 });
 
-const getFieldComponent = (type: string) => {
-    switch (type) {
-        case 'text':
-        case 'email':
-            return 'TextInput';
-        case 'textarea':
-            return 'Textarea';
-        case 'select':
-            return 'Select';
-        case 'checkbox':
-            return 'Checkbox';
-        case 'radio':
-            return 'Radio';
-        default:
-            return 'TextInput';
-    }
-};
+const draggedField = ref(null);
+const draggedIndex = ref(-1);
 
 const onDragStart = (event: DragEvent, field: { type: string } | FormField) => {
     if ('name' in field) {
-        // This is a FormField being reordered
-        event.dataTransfer?.setData('fieldIndex', form.value.fields.indexOf(field).toString());
+        // Reordering existing field
+        draggedField.value = field;
+        draggedIndex.value = form.value.fields.indexOf(field);
         event.dataTransfer?.setData('action', 'reorder');
     } else {
-        // This is a field type being added
-        event.dataTransfer?.setData('fieldType', field.type);
+        // Adding new field
+        draggedField.value = { type: field.type };
+        draggedIndex.value = -1;
         event.dataTransfer?.setData('action', 'add');
     }
 };
@@ -390,43 +378,59 @@ const updateFieldOrders = () => {
     });
 };
 
-const onDrop = (event: DragEvent, targetIndex: number) => {
-    const action = event.dataTransfer?.getData('action');
-
-    if (action === 'reorder') {
-        const sourceIndex = parseInt(event.dataTransfer?.getData('fieldIndex') || '-1');
-        if (sourceIndex >= 0 && sourceIndex !== targetIndex) {
-            const [movedField] = form.value.fields.splice(sourceIndex, 1);
-            form.value.fields.splice(targetIndex, 0, movedField);
-            updateFieldOrders(); // Update order after reordering
-        }
-    } else if (action === 'add') {
-        const fieldType = event.dataTransfer?.getData('fieldType');
-        if (fieldType) {
-            addField(fieldType);
-            updateFieldOrders(); // Update order after adding
-        }
-    }
-};
-
-const addField = (type: string) => {
-    const newField: FormField = {
+const createNewField = (type: string): FormField => {
+    return {
         type,
-        name: `field_${form.value.fields.length + 1}`,
-        label: 'New Field',
+        name: `field_${Date.now()}`,
+        label: `New ${type.charAt(0).toUpperCase() + type.slice(1)} Field`,
         placeholder: '',
         is_required: false,
-        options: (type === 'select' || type === 'radio') ? [] : undefined,
+        options: (type === 'select' || type === 'radio') ? [{ value: 'Option 1' }] : undefined,
         order: form.value.fields.length + 1,
         showOptions: type === 'select' || type === 'radio'
     };
-    form.value.fields.push(newField);
+};
+
+const onDrop = (event: DragEvent, targetIndex: number) => {
+    event.preventDefault();
+    const action = event.dataTransfer?.getData('action');
+
+    if (!draggedField.value) return;
+
+    if (action === 'reorder' && draggedIndex.value !== -1) {
+        // Remove the field from its original position
+        form.value.fields.splice(draggedIndex.value, 1);
+        
+        // Adjust target index if needed
+        const adjustedIndex = targetIndex > draggedIndex.value ? targetIndex - 1 : targetIndex;
+        
+        // Insert the field at the new position
+        form.value.fields.splice(adjustedIndex, 0, draggedField.value);
+    } else if (action === 'add' && draggedField.value.type) {
+        const newField = createNewField(draggedField.value.type);
+        form.value.fields.splice(targetIndex, 0, newField);
+    }
+
+    // Reset drag state
+    draggedField.value = null;
+    draggedIndex.value = -1;
+    
+    // Update field orders
     updateFieldOrders();
+};
+
+const onDragEnd = () => {
+    draggedField.value = null;
+    draggedIndex.value = -1;
+};
+
+const onDragOver = (event: DragEvent) => {
+    event.preventDefault();
 };
 
 const removeField = (index: number) => {
     form.value.fields.splice(index, 1);
-    updateFieldOrders(); // Update order after removing
+    updateFieldOrders();
 };
 
 const saveForm = async () => {
