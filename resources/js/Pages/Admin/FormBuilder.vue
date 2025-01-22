@@ -106,10 +106,9 @@
                                                     <span :class="[
                                                         'px-2 py-1 text-xs font-medium rounded-full',
                                                         {
-                                                            'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email',
+                                                            'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email' || field.type === 'radio',
                                                             'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
-                                                            'bg-gray-100 text-gray-700': field.type === 'select',
-                                                            'bg-blue-100 text-blue-700': field.type === 'radio'
+                                                            'bg-gray-100 text-gray-700': field.type === 'select'
                                                         }
                                                     ]">
                                                         {{ field.type }}
@@ -127,107 +126,111 @@
                         <div class="col-span-12 md:col-span-9">
                             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Form Preview</h2>
-                                <div class="space-y-4">
-                                    <div class="form-fields-container space-y-4">
-                                        <div v-for="(field, index) in form.fields" :key="field.id"
-                                            :class="[
-                                                'form-field p-6 bg-white rounded-lg border-2 shadow-sm transition-all duration-200',
-                                                {
-                                                    'border-blue-100 hover:border-blue-300': field.type === 'text' || field.type === 'email',
-                                                    'border-green-100 hover:border-green-300': field.type === 'textarea',
-                                                    'border-black border-opacity-10 hover:border-opacity-30': field.type === 'select',
-                                                    'border-blue-100 hover:border-blue-300': field.type === 'radio',
-                                                    'border-green-100 hover:border-green-300': field.type === 'checkbox'
-                                                }
-                                            ]"
-                                            draggable="true"
-                                            @dragstart="onDragStart($event, field)"
-                                            @dragend="onDragEnd"
-                                            @dragover.prevent="onDragOver($event, index)"
-                                            @drop="onDrop($event, index)">
-                                            <div class="flex justify-between items-start mb-4">
-                                                <div class="flex items-center space-x-3">
-                                                    <!-- Drag Handle -->
-                                                    <div class="cursor-move text-gray-400 hover:text-gray-600">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"/>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="flex items-center space-x-2">
-                                                        <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
-                                                        <span :class="[
-                                                            'px-2 py-1 text-xs font-medium rounded-full',
-                                                            {
-                                                                'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email',
-                                                                'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
-                                                                'bg-gray-100 text-gray-700': field.type === 'select',
-                                                                'bg-blue-100 text-blue-700': field.type === 'radio'
-                                                            }
-                                                        ]">
-                                                            {{ field.type }}
-                                                        </span>
-                                                    </div>
+                                <TransitionGroup
+                                    name="form-fields"
+                                    tag="div"
+                                    class="form-fields-container space-y-4"
+                                >
+                                    <div v-for="(field, index) in form.fields" :key="field.id"
+                                        :class="[
+                                            'form-field p-6 bg-white rounded-lg border-2 shadow-sm transition-all duration-200',
+                                            {
+                                                'border-blue-100 hover:border-blue-300': field.type === 'text' || field.type === 'email',
+                                                'border-green-100 hover:border-green-300': field.type === 'textarea',
+                                                'border-black border-opacity-10 hover:border-opacity-30': field.type === 'select',
+                                                'border-blue-100 hover:border-blue-300': field.type === 'radio',
+                                                'border-green-100 hover:border-green-300': field.type === 'checkbox',
+                                                'dragging': draggedField?.id === field.id,
+                                                'is-over': dragOverIndex === index
+                                            }
+                                        ]"
+                                        draggable="true"
+                                        @dragstart="onDragStart($event, field)"
+                                        @dragend="onDragEnd"
+                                        @dragover.prevent="onDragOver($event, index)"
+                                        @drop="onDrop($event, index)">
+                                        <div class="flex justify-between items-start mb-4">
+                                            <div class="flex items-center space-x-3">
+                                                <!-- Drag Handle -->
+                                                <div class="cursor-move text-gray-400 hover:text-gray-600">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"/>
+                                                    </svg>
                                                 </div>
                                                 <div class="flex items-center space-x-2">
-                                                    <button @click="removeField(index)"
+                                                    <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
+                                                    <span :class="[
+                                                        'px-2 py-1 text-xs font-medium rounded-full',
+                                                        {
+                                                            'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email',
+                                                            'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
+                                                            'bg-gray-100 text-gray-700': field.type === 'select',
+                                                            'bg-blue-100 text-blue-700': field.type === 'radio'
+                                                        }
+                                                    ]">
+                                                        {{ field.type }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <button @click="removeField(index)"
+                                                    class="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Field Options -->
+                                        <div class="mt-4 space-y-4">
+                                            <div class="flex items-center space-x-4">
+                                                <label class="inline-flex items-center">
+                                                    <input type="checkbox" v-model="field.is_required"
+                                                        class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                                                    <span class="ml-2 text-sm text-gray-600">Required</span>
+                                                </label>
+                                            </div>
+
+                                            <input v-model="field.placeholder"
+                                                class="w-full px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                placeholder="Placeholder text" />
+
+                                            <!-- Options for select/radio/checkbox -->
+                                            <div v-if="['select', 'radio', 'checkbox'].includes(field.type)" class="space-y-2">
+                                                <div v-for="(option, optionIndex) in field.options" :key="optionIndex"
+                                                    class="flex items-center space-x-2">
+                                                    <input v-model="option.value"
+                                                        class="flex-1 px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                        placeholder="Option value" />
+                                                    <button @click="field.options.splice(optionIndex, 1)"
                                                         class="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                         </svg>
                                                     </button>
                                                 </div>
+                                                <button @click="field.options.push({ value: '' })"
+                                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 01-1 1h-3a1 1 0 110-2h3V8a1 1 0 011-1V6a1 1 0 110-2h-3a1 1 0 010-2h3V5z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    Add Option
+                                                </button>
                                             </div>
-
-                                            <!-- Field Options -->
-                                            <div class="mt-4 space-y-4">
-                                                <div class="flex items-center space-x-4">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="checkbox" v-model="field.is_required"
-                                                            class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
-                                                        <span class="ml-2 text-sm text-gray-600">Required</span>
-                                                    </label>
-                                                </div>
-
-                                                <input v-model="field.placeholder"
-                                                    class="w-full px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                    placeholder="Placeholder text" />
-
-                                                <!-- Options for select/radio/checkbox -->
-                                                <div v-if="['select', 'radio', 'checkbox'].includes(field.type)" class="space-y-2">
-                                                    <div v-for="(option, optionIndex) in field.options" :key="optionIndex"
-                                                        class="flex items-center space-x-2">
-                                                        <input v-model="option.value"
-                                                            class="flex-1 px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                            placeholder="Option value" />
-                                                        <button @click="field.options.splice(optionIndex, 1)"
-                                                            class="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                    <button @click="field.options.push({ value: '' })"
-                                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 01-1 1h-3a1 1 0 110-2h3V8a1 1 0 011-1V6a1 1 0 110-2h-3a1 1 0 010-2h3V5z" clip-rule="evenodd" />
-                                                        </svg>
-                                                        Add Option
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Empty State -->
-                                        <div v-if="!form.fields.length"
-                                            class="p-12 text-center border-2 border-dashed border-gray-300 rounded-lg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                            </svg>
-                                            <h3 class="mt-2 text-sm font-medium text-gray-900">No fields added</h3>
-                                            <p class="mt-1 text-sm text-gray-500">Drag fields from the palette to start building your form</p>
                                         </div>
                                     </div>
-                                </div>
+
+                                    <!-- Empty State -->
+                                    <div v-if="!form.fields.length"
+                                        class="p-12 text-center border-2 border-dashed border-gray-300 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5 5a1 1 0 01-.293.707V17a2 2 0 01-2 2z" />
+                                        </svg>
+                                        <h3 class="mt-2 text-sm font-medium text-gray-900">No fields added</h3>
+                                        <p class="mt-1 text-sm text-gray-500">Drag fields from the palette to start building your form</p>
+                                    </div>
+                                </TransitionGroup>
                             </div>
                         </div>
                     </div>
@@ -341,27 +344,52 @@ watch(jsonConfig, (newJson) => {
 });
 
 const draggedField = ref(null);
-const draggedIndex = ref(-1);
+const dragOverIndex = ref(null);
 
-const onDragStart = (event: DragEvent, field: { type: string } | FormField) => {
-    if ('name' in field) {
-        // Reordering existing field
-        draggedField.value = field;
-        draggedIndex.value = form.value.fields.indexOf(field);
-        event.dataTransfer?.setData('action', 'reorder');
-    } else {
+function onDragStart(event, field) {
+    draggedField.value = field;
+    event.target.classList.add('dragging');
+}
+
+function onDragEnd(event) {
+    event.target.classList.remove('dragging');
+    draggedField.value = null;
+    dragOverIndex.value = null;
+}
+
+function onDragOver(event, index) {
+    event.preventDefault();
+    if (!draggedField.value) return;
+    
+    const draggedIndex = form.value.fields.findIndex(f => f.id === draggedField.value.id);
+    if (draggedIndex === index) return;
+    
+    dragOverIndex.value = index;
+}
+
+function onDrop(event, index) {
+    event.preventDefault();
+    
+    if (!draggedField.value) return;
+    
+    const currentIndex = form.value.fields.findIndex(f => f.id === draggedField.value.id);
+    
+    if (currentIndex === -1) {
         // Adding new field
-        draggedField.value = { type: field.type };
-        draggedIndex.value = -1;
-        event.dataTransfer?.setData('action', 'add');
+        const newField = {
+            id: Date.now(),
+            ...draggedField.value
+        };
+        form.value.fields.splice(index, 0, newField);
+    } else {
+        // Reordering existing field
+        const [movedField] = form.value.fields.splice(currentIndex, 1);
+        form.value.fields.splice(index, 0, movedField);
     }
-};
-
-const updateFieldOrders = () => {
-    form.value.fields.forEach((field, index) => {
-        field.order = index + 1;
-    });
-};
+    
+    draggedField.value = null;
+    dragOverIndex.value = null;
+}
 
 const createNewField = (type: string): FormField => {
     return {
@@ -376,41 +404,10 @@ const createNewField = (type: string): FormField => {
     };
 };
 
-const onDrop = (event: DragEvent, targetIndex: number) => {
-    event.preventDefault();
-    const action = event.dataTransfer?.getData('action');
-
-    if (!draggedField.value) return;
-
-    if (action === 'reorder' && draggedIndex.value !== -1) {
-        // Remove the field from its original position
-        form.value.fields.splice(draggedIndex.value, 1);
-
-        // Adjust target index if needed
-        const adjustedIndex = targetIndex > draggedIndex.value ? targetIndex - 1 : targetIndex;
-
-        // Insert the field at the new position
-        form.value.fields.splice(adjustedIndex, 0, draggedField.value);
-    } else if (action === 'add' && draggedField.value.type) {
-        const newField = createNewField(draggedField.value.type);
-        form.value.fields.splice(targetIndex, 0, newField);
-    }
-
-    // Reset drag state
-    draggedField.value = null;
-    draggedIndex.value = -1;
-
-    // Update field orders
-    updateFieldOrders();
-};
-
-const onDragEnd = () => {
-    draggedField.value = null;
-    draggedIndex.value = -1;
-};
-
-const onDragOver = (event: DragEvent) => {
-    event.preventDefault();
+const updateFieldOrders = () => {
+    form.value.fields.forEach((field, index) => {
+        field.order = index + 1;
+    });
 };
 
 const removeField = (index: number) => {
@@ -472,102 +469,64 @@ const sanitizeFieldName = (fieldName: string): string => {
 </script>
 
 <style scoped>
-/* Drag and drop styling */
-[draggable="true"] {
-    cursor: move;
+/* Base transitions */
+.form-fields-move {
+    transition: transform 0.5s ease;
 }
 
-.dragging {
-    opacity: 0.5;
-}
-
-/* Transitions */
-.transition-all {
-    transition: all 0.2s ease-in-out;
-}
-
-/* Hover effects */
-.hover\:shadow-lg:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-/* Input focus styles */
-input:focus, select:focus {
-    outline: none;
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-/* Field type-specific styles */
-.field-text, .field-email {
-    @apply border-blue-200;
-}
-
-.field-textarea, .field-checkbox {
-    @apply border-green-200;
-}
-
-.field-select {
-    @apply border-black border-opacity-20;
-}
-
-/* Animations */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.field-enter-active {
-    animation: slideIn 0.3s ease-out;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #666;
-}
-
-/* Drag and drop styles */
+/* Field styling */
 .form-field {
     cursor: move;
     user-select: none;
+    position: relative;
+    background: white;
+    transition: all 0.3s ease;
 }
 
+/* Dragging state */
 .form-field.dragging {
     opacity: 0.5;
-    background: #f8fafc;
-    border: 2px dashed #94a3b8;
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
+/* Drag over indicator */
+.form-field.is-over::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #3b82f6;
+    transform: scaleX(1);
+    transition: transform 0.2s ease;
+}
+
+/* Container styling */
 .form-fields-container {
-    min-height: 100px;
+    min-height: 50px;
+    padding: 1rem 0;
 }
 
-/* Drag handle hover effect */
+/* Hover effects */
+.form-field:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure smooth animations */
+.form-fields-container > * {
+    transition: all 0.3s ease;
+}
+
+/* Drag handle */
 .cursor-move {
     transition: all 0.2s ease;
 }
 
 .cursor-move:hover {
     transform: scale(1.1);
+    color: #4B5563;
 }
 </style>
