@@ -99,16 +99,19 @@ export const useFormBuilder = (props: { form: Form }) => {
             
             const draggedFieldData = JSON.parse(data);
             
-            // If field has no ID, it's a new field from the palette
-            if (!draggedFieldData.id) {
-                const newField = createNewField(draggedFieldData.type);
-                form.value.fields.splice(index, 0, newField);
-            } else {
-                // Reordering existing field
-                const currentIndex = form.value.fields.findIndex(f => f.id === draggedFieldData.id);
-                if (currentIndex !== -1 && currentIndex !== index) {
-                    const [movedField] = form.value.fields.splice(currentIndex, 1);
-                    form.value.fields.splice(index, 0, movedField);
+            // Check if we're dragging from the palette or reordering
+            if (draggedField.value) {
+                if (draggedField.value.id) {
+                    // Reordering existing field
+                    const currentIndex = form.value.fields.findIndex(f => f.id === draggedField.value?.id);
+                    if (currentIndex !== -1 && currentIndex !== index) {
+                        const [movedField] = form.value.fields.splice(currentIndex, 1);
+                        form.value.fields.splice(index, 0, movedField);
+                    }
+                } else {
+                    // Creating new field from palette
+                    const newField = createNewField(draggedField.value.type);
+                    form.value.fields.splice(index, 0, newField);
                 }
             }
             

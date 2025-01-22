@@ -8,7 +8,7 @@
                             <div class="p-8 bg-white">
                                 <div class="flex justify-end mt-4 space-x-4">
                                     <button type="button" @click="toggleJsonEditor"
-                                        class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-green-500 rounded-md border border-transparent transition hover:bg-green-600 active:bg-green-700 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-200 disabled:opacity-25">
+                                        class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-black rounded-md border border-transparent transition hover:bg-gray-800 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-200 disabled:opacity-25">
                                         {{ isJsonEditorVisible ? 'Edit Manually' : 'Configure JSON' }}
                                     </button>
                                 </div>
@@ -66,7 +66,7 @@
                                                         @dragstart="onDragStart($event, { type: field.type, label: field.label })"
                                                         @dragend="onDragEnd">
                                                         <div class="flex items-center space-x-3">
-                                                            <div class="field-icon flex items-center justify-center w-10 h-10 rounded-lg">
+                                                            <div class="flex justify-center items-center w-10 h-10 rounded-lg field-icon">
                                                                 <!-- Field Type Icons -->
                                                                 <svg v-if="field.type === 'text'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
@@ -91,7 +91,7 @@
                                                             <div>
                                                                 <div class="flex items-center space-x-2">
                                                                     <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
-                                                                    <span class="field-badge px-2 py-1 text-xs font-medium rounded-full">
+                                                                    <span class="px-2 py-1 text-xs font-medium rounded-full field-badge">
                                                                         {{ field.type }}
                                                                     </span>
                                                                 </div>
@@ -139,16 +139,16 @@
                                                                 </div>
                                                                 <div class="flex items-center space-x-2">
                                                                     <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
-                                                                    <span class="field-badge px-2 py-1 text-xs font-medium rounded-full">
+                                                                    <span class="px-2 py-1 text-xs font-medium rounded-full field-badge">
                                                                         {{ field.type }}
                                                                     </span>
                                                                 </div>
                                                             </div>
                                                             <div class="flex items-center space-x-2">
                                                                 <button @click="removeField(index)"
-                                                                    class="p-2 text-gray-400 rounded-lg hover:text-red-500 hover:bg-red-50">
+                                                                    class="p-2 text-red-400 rounded-lg hover:text-red-500 hover:bg-red-50">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                                                                     </svg>
                                                                 </button>
                                                             </div>
