@@ -1,0 +1,84 @@
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+/* Form fields transition */
+.form-fields-move {
+    transition: transform 0.3s ease;
+}
+
+.form-fields-enter-active,
+.form-fields-leave-active {
+    transition: all 0.3s ease;
+}
+
+.form-fields-enter-from,
+.form-fields-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.form-fields-leave-active {
+    position: absolute;
+}
+
+/* Field styling */
+.form-field {
+    cursor: move;
+    user-select: none;
+    position: relative;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+/* Dragging state */
+.form-field.dragging {
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Drag over indicator */
+.form-field.is-over::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #3b82f6;
+    transform: scaleX(1);
+    transition: transform 0.2s ease;
+}
+
+/* Container styling */
+.form-fields-container {
+    min-height: 50px;
+    padding: 1rem 0;
+}
+
+/* Hover effects */
+.form-field:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure smooth animations */
+.form-fields-container > * {
+    transition: all 0.3s ease;
+}
+
+/* Drag handle */
+.cursor-move {
+    transition: all 0.2s ease;
+}
+
+.cursor-move:hover {
+    transform: scale(1.1);
+    color: #4B5563;
+}

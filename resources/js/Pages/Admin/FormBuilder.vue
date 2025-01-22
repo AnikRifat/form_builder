@@ -17,12 +17,12 @@
                                 <Transition name="fade" mode="out-in">
                                     <div v-if="!isJsonEditorVisible" class="mb-6 space-y-4">
                                         <div class="p-6 bg-white rounded-xl border border-gray-100 shadow-sm">
-                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                                                 <!-- Form Title -->
                                                 <div class="space-y-2">
                                                     <label class="block text-sm font-medium text-gray-700">Form Title</label>
                                                     <input v-model="form.title" type="text"
-                                                        class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                                        class="px-4 py-2.5 w-full text-gray-900 rounded-lg border-2 border-gray-200 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                                         placeholder="Enter form title" />
                                                 </div>
 
@@ -30,7 +30,7 @@
                                                 <div class="space-y-2">
                                                     <label class="block text-sm font-medium text-gray-700">HTTP Method</label>
                                                     <select v-model="form.method"
-                                                        class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                                                        class="px-4 py-2.5 w-full text-gray-900 rounded-lg border-2 border-gray-200 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                                         <option value="GET">GET</option>
                                                         <option value="POST">POST</option>
                                                         <option value="PUT">PUT</option>
@@ -42,7 +42,7 @@
                                                 <div class="space-y-2">
                                                     <label class="block text-sm font-medium text-gray-700">Form Action</label>
                                                     <input v-model="form.action" type="text"
-                                                        class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                                        class="px-4 py-2.5 w-full text-gray-900 rounded-lg border-2 border-gray-200 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                                         placeholder="Enter form action URL" />
                                                 </div>
                                             </div>
@@ -54,8 +54,8 @@
                                     <div v-if="!isJsonEditorVisible" class="grid grid-cols-12 gap-8">
                                         <!-- Field Types Palette -->
                                         <div class="col-span-12 md:col-span-3">
-                                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                                                <h2 class="text-lg font-semibold text-gray-900 mb-4">Field Types</h2>
+                                            <div class="p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
+                                                <h2 class="mb-4 text-lg font-semibold text-gray-900">Field Types</h2>
                                                 <div class="space-y-3">
                                                     <div v-for="field in fieldTypes" :key="field.type"
                                                         :class="[
@@ -79,23 +79,23 @@
                                                                 }
                                                             ]">
                                                                 <!-- Field Type Icons -->
-                                                                <svg v-if="field.type === 'text'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <svg v-if="field.type === 'text'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
                                                                 </svg>
-                                                                <svg v-if="field.type === 'email'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <svg v-if="field.type === 'email'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                                                                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                                                                 </svg>
-                                                                <svg v-if="field.type === 'textarea'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <svg v-if="field.type === 'textarea'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm2-1h10a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z" clip-rule="evenodd" />
                                                                 </svg>
-                                                                <svg v-if="field.type === 'select'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <svg v-if="field.type === 'select'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                                 </svg>
-                                                                <svg v-if="field.type === 'radio'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <svg v-if="field.type === 'radio'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                                                 </svg>
-                                                                <svg v-if="field.type === 'checkbox'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <svg v-if="field.type === 'checkbox'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                                                 </svg>
                                                             </div>
@@ -123,12 +123,12 @@
 
                                         <!-- Form Preview -->
                                         <div class="col-span-12 md:col-span-9">
-                                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                                                <h2 class="text-lg font-semibold text-gray-900 mb-4">Form Preview</h2>
+                                            <div class="p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
+                                                <h2 class="mb-4 text-lg font-semibold text-gray-900">Form Preview</h2>
                                                 <TransitionGroup
                                                     name="form-fields"
                                                     tag="div"
-                                                    class="form-fields-container space-y-4"
+                                                    class="space-y-4 form-fields-container"
                                                 >
                                                     <div v-for="(field, index) in form.fields" :key="field.id"
                                                         :class="[
@@ -151,8 +151,8 @@
                                                         <div class="flex justify-between items-start mb-4">
                                                             <div class="flex items-center space-x-3">
                                                                 <!-- Drag Handle -->
-                                                                <div class="cursor-move text-gray-400 hover:text-gray-600">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <div class="text-gray-400 cursor-move hover:text-gray-600">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                         <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"/>
                                                                     </svg>
                                                                 </div>
@@ -173,8 +173,8 @@
                                                             </div>
                                                             <div class="flex items-center space-x-2">
                                                                 <button @click="removeField(index)"
-                                                                    class="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                    class="p-2 text-gray-400 rounded-lg hover:text-red-500 hover:bg-red-50">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                                     </svg>
                                                                 </button>
@@ -186,13 +186,13 @@
                                                             <div class="flex items-center space-x-4">
                                                                 <label class="inline-flex items-center">
                                                                     <input type="checkbox" v-model="field.is_required"
-                                                                        class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                                                                        class="text-blue-600 rounded border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
                                                                     <span class="ml-2 text-sm text-gray-600">Required</span>
                                                                 </label>
                                                             </div>
 
                                                             <input v-model="field.placeholder"
-                                                                class="w-full px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                                class="px-4 py-2 w-full text-sm rounded-lg border-2 border-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                                                 placeholder="Placeholder text" />
 
                                                             <!-- Options for select/radio/checkbox -->
@@ -200,18 +200,18 @@
                                                                 <div v-for="(option, optionIndex) in field.options" :key="optionIndex"
                                                                     class="flex items-center space-x-2">
                                                                     <input v-model="option.value"
-                                                                        class="flex-1 px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                                        class="flex-1 px-4 py-2 text-sm rounded-lg border-2 border-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                                                         placeholder="Option value" />
                                                                     <button @click="field.options.splice(optionIndex, 1)"
-                                                                        class="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                        class="p-2 text-gray-400 rounded-lg hover:text-red-500 hover:bg-red-50">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                                         </svg>
                                                                     </button>
                                                                 </div>
                                                                 <button @click="field.options.push({ value: '' })"
                                                                     class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                         <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 01-1 1h-3a1 1 0 110-2h3V8a1 1 0 011-1V6a1 1 0 110-2h-3a1 1 0 010-2h3V5z" clip-rule="evenodd" />
                                                                     </svg>
                                                                     Add Option
@@ -222,8 +222,8 @@
 
                                                     <!-- Empty State -->
                                                     <div v-if="!form.fields.length"
-                                                        class="p-12 text-center border-2 border-dashed border-gray-300 rounded-lg">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        class="p-12 text-center rounded-lg border-2 border-gray-300 border-dashed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5 5a1 1 0 01-.293.707V17a2 2 0 01-2 2z" />
                                                         </svg>
                                                         <h3 class="mt-2 text-sm font-medium text-gray-900">No fields added</h3>
@@ -273,441 +273,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, watch, computed } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { useFormBuilder } from './formBuilder.ts';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { TrashIcon, PlusIcon } from '@heroicons/vue/24/outline';
 import { Form, FormField } from '@/types/form';
+import './formBuilder.css';
 
 interface Props {
     form: Form;
 }
 
 const props = defineProps<Props>();
-
-const fieldTypes = [
-    { type: 'text', label: 'Text Input' },
-    { type: 'email', label: 'Email Input' },
-    { type: 'textarea', label: 'Text Area' },
-    { type: 'select', label: 'Select Box' },
-    { type: 'checkbox', label: 'Checkbox' },
-    { type: 'radio', label: 'Radio Button' },
-];
-
-const form = ref<Form>(props.form);
-
-// Initialize form fields if empty
-if (!form.value.fields) {
-    form.value.fields = [];
-}
-
-watch(() => props.form, (newForm) => {
-    form.value = newForm || {
-        title: '',
-        description: '',
-        method: '',
-        action: '',
-        is_active: true,
-        fields: []
-    };
-
-    // Ensure fields array exists
-    form.value.fields = form.value.fields || [];
-
-    // Initialize showOptions for each field
-    form.value.fields.forEach(field => {
-        field.showOptions = Boolean(field.options?.length);
-    });
-}, { immediate: true });
-
-const isJsonEditorVisible = ref(false);
-
-const toggleJsonEditor = () => {
-    isJsonEditorVisible.value = !isJsonEditorVisible.value;
-    if (isJsonEditorVisible.value) {
-        showJsonConfig();
-    }
-};
-
-const jsonConfig = ref('');
-const jsonError = ref('');
-const jsonWarnings = ref<string[]>([]);
-
-const showJsonConfig = () => {
-    const { id, created_at, updated_at, deleted_at, ...formWithoutTimestamps } = form.value;
-    const fieldsWithoutTimestamps = formWithoutTimestamps.fields.map(field => {
-        const { id, created_at, updated_at, deleted_at, form_id, ...fieldWithoutTimestamps } = field;
-        return fieldWithoutTimestamps;
-    });
-    jsonConfig.value = JSON.stringify({ ...formWithoutTimestamps, fields: fieldsWithoutTimestamps }, null, 2);
-};
-
-const resetJsonConfig = () => {
-    showJsonConfig();
-};
-
-const validateFormJson = (json: any): { isValid: boolean; error: string; warnings: string[] } => {
-    try {
-        const warnings: string[] = [];
-        
-        // Check if required form properties exist
-        if (!json.title) return { isValid: false, error: 'Form title is required', warnings };
-        
-        // Validate HTTP method
-        if (!json.method) {
-            return { isValid: false, error: 'Form method is required', warnings };
-        }
-        
-        const validMethods = ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'];
-        const providedMethod = json.method.toUpperCase();
-        
-        if (!validMethods.includes(providedMethod)) {
-            return { 
-                isValid: false, 
-                error: `Invalid HTTP method "${json.method}". Must be one of: ${validMethods.join(', ')}`,
-                warnings 
-            };
-        }
-        
-        if (json.method !== providedMethod) {
-            warnings.push(`Method should be uppercase: "${json.method}" → "${providedMethod}"`);
-            json.method = providedMethod; // Auto-correct the method case
-        }
-
-        // Validate form action
-        if (!json.action) {
-            return { isValid: false, error: 'Form action is required', warnings };
-        }
-        
-        if (!json.action.startsWith('/')) {
-            warnings.push(`Action URL should start with a forward slash: "${json.action}" → "/${json.action}"`);
-        }
-
-        if (!Array.isArray(json.fields)) {
-            return { isValid: false, error: 'Fields must be an array', warnings };
-        }
-
-        // Validate each field
-        for (let i = 0; i < json.fields.length; i++) {
-            const field = json.fields[i];
-            
-            // Check required field properties
-            if (!field.type) {
-                return { isValid: false, error: `Field ${i + 1}: Type is required`, warnings };
-            }
-            if (!field.name) {
-                return { isValid: false, error: `Field ${i + 1}: Name is required`, warnings };
-            }
-            if (!field.label) {
-                return { isValid: false, error: `Field ${i + 1}: Label is required`, warnings };
-            }
-
-            // Validate field type
-            const validTypes = ['text', 'email', 'textarea', 'select', 'checkbox', 'radio'];
-            if (!validTypes.includes(field.type)) {
-                return { 
-                    isValid: false, 
-                    error: `Field ${i + 1}: Invalid type "${field.type}". Must be one of: ${validTypes.join(', ')}`,
-                    warnings
-                };
-            }
-
-            // Validate field name format
-            if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(field.name)) {
-                return { 
-                    isValid: false, 
-                    error: `Field ${i + 1}: Invalid name "${field.name}". Must start with a letter or underscore and contain only letters, numbers, and underscores`,
-                    warnings
-                };
-            }
-
-            // Check for snake_case naming convention
-            if (field.name !== field.name.toLowerCase()) {
-                warnings.push(`Field ${i + 1}: Name should be in snake_case: "${field.name}" → "${field.name.toLowerCase()}"`);
-            }
-
-            // Check for duplicate field names
-            const duplicateName = json.fields.find((f, index) => index !== i && f.name === field.name);
-            if (duplicateName) {
-                return { 
-                    isValid: false, 
-                    error: `Field ${i + 1}: Duplicate field name "${field.name}"`,
-                    warnings
-                };
-            }
-
-            // Validate options for select and radio fields
-            if (['select', 'radio'].includes(field.type)) {
-                if (!Array.isArray(field.options)) {
-                    return { 
-                        isValid: false, 
-                        error: `Field ${i + 1}: Options must be an array for ${field.type} fields`,
-                        warnings
-                    };
-                }
-                if (field.options.length === 0) {
-                    return { 
-                        isValid: false, 
-                        error: `Field ${i + 1}: ${field.type} field must have at least one option`,
-                        warnings
-                    };
-                }
-                for (let j = 0; j < field.options.length; j++) {
-                    if (!field.options[j].value) {
-                        return { 
-                            isValid: false, 
-                            error: `Field ${i + 1}, Option ${j + 1}: Option value is required`,
-                            warnings
-                        };
-                    }
-                }
-            }
-        }
-
-        return { isValid: true, error: '', warnings };
-    } catch (error) {
-        return { isValid: false, error: 'Invalid JSON format', warnings: [] };
-    }
-};
-
-watch(jsonConfig, (newJson) => {
-    try {
-        const newForm = JSON.parse(newJson);
-        const validation = validateFormJson(newForm);
-        
-        jsonWarnings.value = validation.warnings;
-        
-        if (!validation.isValid) {
-            jsonError.value = validation.error;
-            return;
-        }
-
-        form.value = {
-            ...newForm,
-            id: form.value.id,
-            created_at: form.value.created_at,
-            updated_at: form.value.updated_at,
-        };
-        form.value.fields = form.value.fields.map((field, index) => ({
-            ...field,
-            id: newForm.fields[index]?.id || field.id,
-        }));
-        jsonError.value = '';
-    } catch (error) {
-        jsonError.value = 'Invalid JSON syntax';
-        jsonWarnings.value = [];
-    }
-});
-
-const draggedField = ref(null);
-const dragOverIndex = ref(null);
-
-function onDragStart(event, field) {
-    draggedField.value = field;
-    event.target.classList.add('dragging');
-}
-
-function onDragEnd(event) {
-    event.target.classList.remove('dragging');
-    draggedField.value = null;
-    dragOverIndex.value = null;
-}
-
-function onDragOver(event, index) {
-    event.preventDefault();
-    if (!draggedField.value) return;
-    
-    const draggedIndex = form.value.fields.findIndex(f => f.id === draggedField.value.id);
-    if (draggedIndex === index) return;
-    
-    dragOverIndex.value = index;
-}
-
-function onDrop(event, index) {
-    event.preventDefault();
-    
-    if (!draggedField.value) return;
-    
-    const currentIndex = form.value.fields.findIndex(f => f.id === draggedField.value.id);
-    
-    if (currentIndex === -1) {
-        // Adding new field
-        const newField = {
-            id: Date.now(),
-            ...draggedField.value
-        };
-        form.value.fields.splice(index, 0, newField);
-    } else {
-        // Reordering existing field
-        const [movedField] = form.value.fields.splice(currentIndex, 1);
-        form.value.fields.splice(index, 0, movedField);
-    }
-    
-    draggedField.value = null;
-    dragOverIndex.value = null;
-}
-
-const createNewField = (type: string): FormField => {
-    return {
-        type,
-        name: `field_${Date.now()}`,
-        label: `New ${type.charAt(0).toUpperCase() + type.slice(1)} Field`,
-        placeholder: '',
-        is_required: false,
-        options: (type === 'select' || type === 'radio') ? [{ value: 'Option 1' }] : undefined,
-        order: form.value.fields.length + 1,
-        showOptions: type === 'select' || type === 'radio'
-    };
-};
-
-const updateFieldOrders = () => {
-    form.value.fields.forEach((field, index) => {
-        field.order = index + 1;
-    });
-};
-
-const removeField = (index: number) => {
-    form.value.fields.splice(index, 1);
-    updateFieldOrders();
-};
-
-const saveForm = async () => {
-    if (!form.value.title) {
-        alert('Please enter a form title');
-        return;
-    }
-
-    // Sanitize and validate field names
-    for (const field of form.value.fields) {
-        field.name = sanitizeFieldName(field.name);
-        if (!field.name || !/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(field.name)) {
-            alert(`Invalid field name: ${field.name}. Field names must start with a letter or underscore and contain only letters, numbers, and underscores.`);
-            return;
-        }
-    }
-
-    // Check for duplicate field names
-    const fieldNames = new Set();
-    for (const field of form.value.fields) {
-        if (fieldNames.has(field.name)) {
-            alert(`Duplicate field name: ${field.name}. Field names must be unique.`);
-            return;
-        }
-        fieldNames.add(field.name);
-    }
-
-    try {
-        const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
-        const url = form.value.id
-            ? route('forms.update', { form: form.value.id })
-            : route('forms.store');
-
-        await router[form.value.id ? 'put' : 'post'](url, {
-            ...form.value,
-            fields: form.value.fields.map(field => ({
-                ...field
-            }))
-        }, {
-            headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        });
-    } catch (error) {
-        console.error('Error saving form:', error);
-    }
-};
-
-const sanitizeFieldName = (fieldName: string): string => {
-    return fieldName.replace(/[^a-zA-Z0-9_]/g, '_');
-};
+const {
+    fieldTypes,
+    form,
+    isJsonEditorVisible,
+    jsonConfig,
+    jsonError,
+    jsonWarnings,
+    draggedField,
+    dragOverIndex,
+    toggleJsonEditor,
+    resetJsonConfig,
+    onDragStart,
+    onDragEnd,
+    onDragOver,
+    onDrop,
+    removeField,
+    saveForm
+} = useFormBuilder(props);
 </script>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-
-/* Form fields transition */
-.form-fields-move {
-    transition: transform 0.3s ease;
-}
-
-.form-fields-enter-active,
-.form-fields-leave-active {
-    transition: all 0.3s ease;
-}
-
-.form-fields-enter-from,
-.form-fields-leave-to {
-    opacity: 0;
-    transform: translateX(30px);
-}
-
-.form-fields-leave-active {
-    position: absolute;
-}
-
-/* Field styling */
-.form-field {
-    cursor: move;
-    user-select: none;
-    position: relative;
-    background: white;
-    transition: all 0.3s ease;
-}
-
-/* Dragging state */
-.form-field.dragging {
-    opacity: 0.5;
-    transform: scale(1.02);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-/* Drag over indicator */
-.form-field.is-over::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #3b82f6;
-    transform: scaleX(1);
-    transition: transform 0.2s ease;
-}
-
-/* Container styling */
-.form-fields-container {
-    min-height: 50px;
-    padding: 1rem 0;
-}
-
-/* Hover effects */
-.form-field:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-/* Ensure smooth animations */
-.form-fields-container > * {
-    transition: all 0.3s ease;
-}
-
-/* Drag handle */
-.cursor-move {
-    transition: all 0.2s ease;
-}
-
-.cursor-move:hover {
-    transform: scale(1.1);
-    color: #4B5563;
-}
-</style>
