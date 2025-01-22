@@ -14,220 +14,226 @@
                                 </div>
                                 <h1 class="mb-8 text-3xl font-bold text-gray-900">Form Builder</h1>
 
-                                <div v-if="!isJsonEditorVisible" class="mb-6 space-y-4">
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <!-- Form Title -->
-                                        <div class="space-y-2">
-                                            <label class="block text-sm font-medium text-gray-700">Form Title</label>
-                                            <input v-model="form.title" type="text"
-                                                class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                                                placeholder="Enter form title" />
-                                        </div>
+                                <Transition name="fade" mode="out-in">
+                                    <div v-if="!isJsonEditorVisible" class="mb-6 space-y-4">
+                                        <div class="p-6 bg-white rounded-xl border border-gray-100 shadow-sm">
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                                <!-- Form Title -->
+                                                <div class="space-y-2">
+                                                    <label class="block text-sm font-medium text-gray-700">Form Title</label>
+                                                    <input v-model="form.title" type="text"
+                                                        class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                                        placeholder="Enter form title" />
+                                                </div>
 
-                                        <!-- Method Selection -->
-                                        <div class="space-y-2">
-                                            <label class="block text-sm font-medium text-gray-700">HTTP Method</label>
-                                            <select v-model="form.method"
-                                                class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
-                                                <option value="GET">GET</option>
-                                                <option value="POST">POST</option>
-                                                <option value="PUT">PUT</option>
-                                                <option value="DELETE">DELETE</option>
-                                            </select>
-                                        </div>
+                                                <!-- Method Selection -->
+                                                <div class="space-y-2">
+                                                    <label class="block text-sm font-medium text-gray-700">HTTP Method</label>
+                                                    <select v-model="form.method"
+                                                        class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                                                        <option value="GET">GET</option>
+                                                        <option value="POST">POST</option>
+                                                        <option value="PUT">PUT</option>
+                                                        <option value="DELETE">DELETE</option>
+                                                    </select>
+                                                </div>
 
-                                        <!-- Form Action -->
-                                        <div class="space-y-2">
-                                            <label class="block text-sm font-medium text-gray-700">Form Action</label>
-                                            <input v-model="form.action" type="text"
-                                                class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                                                placeholder="Enter form action URL" />
+                                                <!-- Form Action -->
+                                                <div class="space-y-2">
+                                                    <label class="block text-sm font-medium text-gray-700">Form Action</label>
+                                                    <input v-model="form.action" type="text"
+                                                        class="w-full px-4 py-2.5 text-gray-900 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                                        placeholder="Enter form action URL" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Transition>
 
-                                <div v-if="!isJsonEditorVisible" class="grid grid-cols-12 gap-8">
-                                    <!-- Field Types Palette -->
-                                    <div class="col-span-12 md:col-span-3">
-                                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                                            <h2 class="text-lg font-semibold text-gray-900 mb-4">Field Types</h2>
-                                            <div class="space-y-3">
-                                                <div v-for="field in fieldTypes" :key="field.type"
-                                                    :class="[
-                                                        'p-4 bg-white rounded-lg border-2 shadow-sm cursor-move transition-all duration-200',
-                                                        {
-                                                            'border-blue-200 hover:border-blue-500': field.type === 'text' || field.type === 'email' || field.type === 'radio',
-                                                            'border-green-200 hover:border-green-500': field.type === 'textarea' || field.type === 'checkbox',
-                                                            'border-black border-opacity-20 hover:border-black': field.type === 'select'
-                                                        }
-                                                    ]"
-                                                    draggable="true"
-                                                    @dragstart="onDragStart($event, field)"
-                                                    @dragend="onDragEnd">
-                                                    <div class="flex items-center space-x-3">
-                                                        <div :class="[
-                                                            'flex items-center justify-center w-10 h-10 rounded-lg',
+                                <Transition name="fade" mode="out-in">
+                                    <div v-if="!isJsonEditorVisible" class="grid grid-cols-12 gap-8">
+                                        <!-- Field Types Palette -->
+                                        <div class="col-span-12 md:col-span-3">
+                                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                                <h2 class="text-lg font-semibold text-gray-900 mb-4">Field Types</h2>
+                                                <div class="space-y-3">
+                                                    <div v-for="field in fieldTypes" :key="field.type"
+                                                        :class="[
+                                                            'p-4 bg-white rounded-lg border-2 shadow-sm cursor-move transition-all duration-200',
                                                             {
-                                                                'bg-blue-50 text-blue-600': field.type === 'text' || field.type === 'email' || field.type === 'radio',
-                                                                'bg-green-50 text-green-600': field.type === 'textarea' || field.type === 'checkbox',
-                                                                'bg-black bg-opacity-5 text-black': field.type === 'select'
+                                                                'border-blue-200 hover:border-blue-500': field.type === 'text' || field.type === 'email' || field.type === 'radio',
+                                                                'border-green-200 hover:border-green-500': field.type === 'textarea' || field.type === 'checkbox',
+                                                                'border-black border-opacity-20 hover:border-black': field.type === 'select'
                                                             }
-                                                        ]">
-                                                            <!-- Field Type Icons -->
-                                                            <svg v-if="field.type === 'text'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
-                                                            </svg>
-                                                            <svg v-if="field.type === 'email'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                                                            </svg>
-                                                            <svg v-if="field.type === 'textarea'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm2-1h10a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z" clip-rule="evenodd" />
-                                                            </svg>
-                                                            <svg v-if="field.type === 'select'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                            </svg>
-                                                            <svg v-if="field.type === 'radio'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                                            </svg>
-                                                            <svg v-if="field.type === 'checkbox'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                                            </svg>
-                                                        </div>
-                                                        <div>
-                                                            <div class="flex items-center space-x-2">
-                                                                <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
-                                                                <span :class="[
-                                                                    'px-2 py-1 text-xs font-medium rounded-full',
-                                                                    {
-                                                                        'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email' || field.type === 'radio',
-                                                                        'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
-                                                                        'bg-gray-100 text-gray-700': field.type === 'select'
-                                                                    }
-                                                                ]">
-                                                                    {{ field.type }}
-                                                                </span>
+                                                        ]"
+                                                        draggable="true"
+                                                        @dragstart="onDragStart($event, field)"
+                                                        @dragend="onDragEnd">
+                                                        <div class="flex items-center space-x-3">
+                                                            <div :class="[
+                                                                'flex items-center justify-center w-10 h-10 rounded-lg',
+                                                                {
+                                                                    'bg-blue-50 text-blue-600': field.type === 'text' || field.type === 'email' || field.type === 'radio',
+                                                                    'bg-green-50 text-green-600': field.type === 'textarea' || field.type === 'checkbox',
+                                                                    'bg-black bg-opacity-5 text-black': field.type === 'select'
+                                                                }
+                                                            ]">
+                                                                <!-- Field Type Icons -->
+                                                                <svg v-if="field.type === 'text'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
+                                                                </svg>
+                                                                <svg v-if="field.type === 'email'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                                                                </svg>
+                                                                <svg v-if="field.type === 'textarea'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm2-1h10a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z" clip-rule="evenodd" />
+                                                                </svg>
+                                                                <svg v-if="field.type === 'select'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                                </svg>
+                                                                <svg v-if="field.type === 'radio'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                                </svg>
+                                                                <svg v-if="field.type === 'checkbox'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                                </svg>
                                                             </div>
-                                                            <p class="text-xs text-gray-500">Drag to add</p>
+                                                            <div>
+                                                                <div class="flex items-center space-x-2">
+                                                                    <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
+                                                                    <span :class="[
+                                                                        'px-2 py-1 text-xs font-medium rounded-full',
+                                                                        {
+                                                                            'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email' || field.type === 'radio',
+                                                                            'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
+                                                                            'bg-gray-100 text-gray-700': field.type === 'select'
+                                                                        }
+                                                                    ]">
+                                                                        {{ field.type }}
+                                                                    </span>
+                                                                </div>
+                                                                <p class="text-xs text-gray-500">Drag to add</p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Form Preview -->
-                                    <div class="col-span-12 md:col-span-9">
-                                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                                            <h2 class="text-lg font-semibold text-gray-900 mb-4">Form Preview</h2>
-                                            <TransitionGroup
-                                                name="form-fields"
-                                                tag="div"
-                                                class="form-fields-container space-y-4"
-                                            >
-                                                <div v-for="(field, index) in form.fields" :key="field.id"
-                                                    :class="[
-                                                        'form-field p-6 bg-white rounded-lg border-2 shadow-sm transition-all duration-200',
-                                                        {
-                                                            'border-blue-100 hover:border-blue-300': field.type === 'text' || field.type === 'email',
-                                                            'border-green-100 hover:border-green-300': field.type === 'textarea',
-                                                            'border-black border-opacity-10 hover:border-opacity-30': field.type === 'select',
-                                                            'border-blue-100 hover:border-blue-300': field.type === 'radio',
-                                                            'border-green-100 hover:border-green-300': field.type === 'checkbox',
-                                                            'dragging': draggedField?.id === field.id,
-                                                            'is-over': dragOverIndex === index
-                                                        }
-                                                    ]"
-                                                    draggable="true"
-                                                    @dragstart="onDragStart($event, field)"
-                                                    @dragend="onDragEnd"
-                                                    @dragover.prevent="onDragOver($event, index)"
-                                                    @drop="onDrop($event, index)">
-                                                    <div class="flex justify-between items-start mb-4">
-                                                        <div class="flex items-center space-x-3">
-                                                            <!-- Drag Handle -->
-                                                            <div class="cursor-move text-gray-400 hover:text-gray-600">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                    <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"/>
-                                                                </svg>
+                                        <!-- Form Preview -->
+                                        <div class="col-span-12 md:col-span-9">
+                                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                                                <h2 class="text-lg font-semibold text-gray-900 mb-4">Form Preview</h2>
+                                                <TransitionGroup
+                                                    name="form-fields"
+                                                    tag="div"
+                                                    class="form-fields-container space-y-4"
+                                                >
+                                                    <div v-for="(field, index) in form.fields" :key="field.id"
+                                                        :class="[
+                                                            'form-field p-6 bg-white rounded-lg border-2 shadow-sm transition-all duration-200',
+                                                            {
+                                                                'border-blue-100 hover:border-blue-300': field.type === 'text' || field.type === 'email',
+                                                                'border-green-100 hover:border-green-300': field.type === 'textarea',
+                                                                'border-black border-opacity-10 hover:border-opacity-30': field.type === 'select',
+                                                                'border-blue-100 hover:border-blue-300': field.type === 'radio',
+                                                                'border-green-100 hover:border-green-300': field.type === 'checkbox',
+                                                                'dragging': draggedField?.id === field.id,
+                                                                'is-over': dragOverIndex === index
+                                                            }
+                                                        ]"
+                                                        draggable="true"
+                                                        @dragstart="onDragStart($event, field)"
+                                                        @dragend="onDragEnd"
+                                                        @dragover.prevent="onDragOver($event, index)"
+                                                        @drop="onDrop($event, index)">
+                                                        <div class="flex justify-between items-start mb-4">
+                                                            <div class="flex items-center space-x-3">
+                                                                <!-- Drag Handle -->
+                                                                <div class="cursor-move text-gray-400 hover:text-gray-600">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                        <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"/>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="flex items-center space-x-2">
+                                                                    <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
+                                                                    <span :class="[
+                                                                        'px-2 py-1 text-xs font-medium rounded-full',
+                                                                        {
+                                                                            'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email',
+                                                                            'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
+                                                                            'bg-gray-100 text-gray-700': field.type === 'select',
+                                                                            'bg-blue-100 text-blue-700': field.type === 'radio'
+                                                                        }
+                                                                    ]">
+                                                                        {{ field.type }}
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                             <div class="flex items-center space-x-2">
-                                                                <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
-                                                                <span :class="[
-                                                                    'px-2 py-1 text-xs font-medium rounded-full',
-                                                                    {
-                                                                        'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email',
-                                                                        'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
-                                                                        'bg-gray-100 text-gray-700': field.type === 'select',
-                                                                        'bg-blue-100 text-blue-700': field.type === 'radio'
-                                                                    }
-                                                                ]">
-                                                                    {{ field.type }}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex items-center space-x-2">
-                                                            <button @click="removeField(index)"
-                                                                class="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Field Options -->
-                                                    <div class="mt-4 space-y-4">
-                                                        <div class="flex items-center space-x-4">
-                                                            <label class="inline-flex items-center">
-                                                                <input type="checkbox" v-model="field.is_required"
-                                                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
-                                                                <span class="ml-2 text-sm text-gray-600">Required</span>
-                                                            </label>
-                                                        </div>
-
-                                                        <input v-model="field.placeholder"
-                                                            class="w-full px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                            placeholder="Placeholder text" />
-
-                                                        <!-- Options for select/radio/checkbox -->
-                                                        <div v-if="['select', 'radio', 'checkbox'].includes(field.type)" class="space-y-2">
-                                                            <div v-for="(option, optionIndex) in field.options" :key="optionIndex"
-                                                                class="flex items-center space-x-2">
-                                                                <input v-model="option.value"
-                                                                    class="flex-1 px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                                    placeholder="Option value" />
-                                                                <button @click="field.options.splice(optionIndex, 1)"
+                                                                <button @click="removeField(index)"
                                                                     class="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                                     </svg>
                                                                 </button>
                                                             </div>
-                                                            <button @click="field.options.push({ value: '' })"
-                                                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                                                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 01-1 1h-3a1 1 0 110-2h3V8a1 1 0 011-1V6a1 1 0 110-2h-3a1 1 0 010-2h3V5z" clip-rule="evenodd" />
-                                                                </svg>
-                                                                Add Option
-                                                            </button>
+                                                        </div>
+
+                                                        <!-- Field Options -->
+                                                        <div class="mt-4 space-y-4">
+                                                            <div class="flex items-center space-x-4">
+                                                                <label class="inline-flex items-center">
+                                                                    <input type="checkbox" v-model="field.is_required"
+                                                                        class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                                                                    <span class="ml-2 text-sm text-gray-600">Required</span>
+                                                                </label>
+                                                            </div>
+
+                                                            <input v-model="field.placeholder"
+                                                                class="w-full px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                                placeholder="Placeholder text" />
+
+                                                            <!-- Options for select/radio/checkbox -->
+                                                            <div v-if="['select', 'radio', 'checkbox'].includes(field.type)" class="space-y-2">
+                                                                <div v-for="(option, optionIndex) in field.options" :key="optionIndex"
+                                                                    class="flex items-center space-x-2">
+                                                                    <input v-model="option.value"
+                                                                        class="flex-1 px-4 py-2 text-sm border-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                                        placeholder="Option value" />
+                                                                    <button @click="field.options.splice(optionIndex, 1)"
+                                                                        class="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+                                                                <button @click="field.options.push({ value: '' })"
+                                                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 01-1 1h-3a1 1 0 110-2h3V8a1 1 0 011-1V6a1 1 0 110-2h-3a1 1 0 010-2h3V5z" clip-rule="evenodd" />
+                                                                    </svg>
+                                                                    Add Option
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <!-- Empty State -->
-                                                <div v-if="!form.fields.length"
-                                                    class="p-12 text-center border-2 border-dashed border-gray-300 rounded-lg">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5 5a1 1 0 01-.293.707V17a2 2 0 01-2 2z" />
-                                                    </svg>
-                                                    <h3 class="mt-2 text-sm font-medium text-gray-900">No fields added</h3>
-                                                    <p class="mt-1 text-sm text-gray-500">Drag fields from the palette to start building your form</p>
-                                                </div>
-                                            </TransitionGroup>
+                                                    <!-- Empty State -->
+                                                    <div v-if="!form.fields.length"
+                                                        class="p-12 text-center border-2 border-dashed border-gray-300 rounded-lg">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5 5a1 1 0 01-.293.707V17a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                        <h3 class="mt-2 text-sm font-medium text-gray-900">No fields added</h3>
+                                                        <p class="mt-1 text-sm text-gray-500">Drag fields from the palette to start building your form</p>
+                                                    </div>
+                                                </TransitionGroup>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Transition>
 
                                 <div class="flex justify-end mt-6 space-x-4">
                                     <button type="button" @click="saveForm"
@@ -236,15 +242,27 @@
                                     </button>
                                 </div>
 
-                                <div v-if="isJsonEditorVisible" class="mt-4">
-                                    <textarea v-model="jsonConfig" class="p-4 w-full bg-gray-100 rounded"
-                                        rows="20"></textarea>
-                                    <div class="flex justify-end mt-4 space-x-4">
-                                        <button @click="resetJsonConfig"
-                                            class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Reset</button>
+                                <Transition name="fade" mode="out-in">
+                                    <div v-if="isJsonEditorVisible" class="mt-4">
+                                        <textarea v-model="jsonConfig" class="p-4 w-full bg-gray-100 rounded"
+                                            rows="20"></textarea>
+                                        <div class="mt-4 space-y-2">
+                                            <div v-if="jsonError" class="p-3 text-sm text-red-700 bg-red-50 rounded-md border border-red-200">
+                                                <strong class="font-medium">Error:</strong> {{ jsonError }}
+                                            </div>
+                                            <div v-if="jsonWarnings.length > 0" class="p-3 text-sm text-yellow-700 bg-yellow-50 rounded-md border border-yellow-200">
+                                                <strong class="font-medium">Warnings:</strong>
+                                                <ul class="mt-1 ml-4 list-disc">
+                                                    <li v-for="(warning, index) in jsonWarnings" :key="index">{{ warning }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-end mt-4 space-x-4">
+                                            <button @click="resetJsonConfig"
+                                                class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Reset</button>
+                                        </div>
                                     </div>
-                                    <div v-if="jsonError" class="mt-4 text-red-500">{{ jsonError }}</div>
-                                </div>
+                                </Transition>
                             </div>
                         </div>
                     </div>
@@ -313,6 +331,7 @@ const toggleJsonEditor = () => {
 
 const jsonConfig = ref('');
 const jsonError = ref('');
+const jsonWarnings = ref<string[]>([]);
 
 const showJsonConfig = () => {
     const { id, created_at, updated_at, deleted_at, ...formWithoutTimestamps } = form.value;
@@ -327,9 +346,142 @@ const resetJsonConfig = () => {
     showJsonConfig();
 };
 
+const validateFormJson = (json: any): { isValid: boolean; error: string; warnings: string[] } => {
+    try {
+        const warnings: string[] = [];
+        
+        // Check if required form properties exist
+        if (!json.title) return { isValid: false, error: 'Form title is required', warnings };
+        
+        // Validate HTTP method
+        if (!json.method) {
+            return { isValid: false, error: 'Form method is required', warnings };
+        }
+        
+        const validMethods = ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'];
+        const providedMethod = json.method.toUpperCase();
+        
+        if (!validMethods.includes(providedMethod)) {
+            return { 
+                isValid: false, 
+                error: `Invalid HTTP method "${json.method}". Must be one of: ${validMethods.join(', ')}`,
+                warnings 
+            };
+        }
+        
+        if (json.method !== providedMethod) {
+            warnings.push(`Method should be uppercase: "${json.method}" → "${providedMethod}"`);
+            json.method = providedMethod; // Auto-correct the method case
+        }
+
+        // Validate form action
+        if (!json.action) {
+            return { isValid: false, error: 'Form action is required', warnings };
+        }
+        
+        if (!json.action.startsWith('/')) {
+            warnings.push(`Action URL should start with a forward slash: "${json.action}" → "/${json.action}"`);
+        }
+
+        if (!Array.isArray(json.fields)) {
+            return { isValid: false, error: 'Fields must be an array', warnings };
+        }
+
+        // Validate each field
+        for (let i = 0; i < json.fields.length; i++) {
+            const field = json.fields[i];
+            
+            // Check required field properties
+            if (!field.type) {
+                return { isValid: false, error: `Field ${i + 1}: Type is required`, warnings };
+            }
+            if (!field.name) {
+                return { isValid: false, error: `Field ${i + 1}: Name is required`, warnings };
+            }
+            if (!field.label) {
+                return { isValid: false, error: `Field ${i + 1}: Label is required`, warnings };
+            }
+
+            // Validate field type
+            const validTypes = ['text', 'email', 'textarea', 'select', 'checkbox', 'radio'];
+            if (!validTypes.includes(field.type)) {
+                return { 
+                    isValid: false, 
+                    error: `Field ${i + 1}: Invalid type "${field.type}". Must be one of: ${validTypes.join(', ')}`,
+                    warnings
+                };
+            }
+
+            // Validate field name format
+            if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(field.name)) {
+                return { 
+                    isValid: false, 
+                    error: `Field ${i + 1}: Invalid name "${field.name}". Must start with a letter or underscore and contain only letters, numbers, and underscores`,
+                    warnings
+                };
+            }
+
+            // Check for snake_case naming convention
+            if (field.name !== field.name.toLowerCase()) {
+                warnings.push(`Field ${i + 1}: Name should be in snake_case: "${field.name}" → "${field.name.toLowerCase()}"`);
+            }
+
+            // Check for duplicate field names
+            const duplicateName = json.fields.find((f, index) => index !== i && f.name === field.name);
+            if (duplicateName) {
+                return { 
+                    isValid: false, 
+                    error: `Field ${i + 1}: Duplicate field name "${field.name}"`,
+                    warnings
+                };
+            }
+
+            // Validate options for select and radio fields
+            if (['select', 'radio'].includes(field.type)) {
+                if (!Array.isArray(field.options)) {
+                    return { 
+                        isValid: false, 
+                        error: `Field ${i + 1}: Options must be an array for ${field.type} fields`,
+                        warnings
+                    };
+                }
+                if (field.options.length === 0) {
+                    return { 
+                        isValid: false, 
+                        error: `Field ${i + 1}: ${field.type} field must have at least one option`,
+                        warnings
+                    };
+                }
+                for (let j = 0; j < field.options.length; j++) {
+                    if (!field.options[j].value) {
+                        return { 
+                            isValid: false, 
+                            error: `Field ${i + 1}, Option ${j + 1}: Option value is required`,
+                            warnings
+                        };
+                    }
+                }
+            }
+        }
+
+        return { isValid: true, error: '', warnings };
+    } catch (error) {
+        return { isValid: false, error: 'Invalid JSON format', warnings: [] };
+    }
+};
+
 watch(jsonConfig, (newJson) => {
     try {
         const newForm = JSON.parse(newJson);
+        const validation = validateFormJson(newForm);
+        
+        jsonWarnings.value = validation.warnings;
+        
+        if (!validation.isValid) {
+            jsonError.value = validation.error;
+            return;
+        }
+
         form.value = {
             ...newForm,
             id: form.value.id,
@@ -342,7 +494,8 @@ watch(jsonConfig, (newJson) => {
         }));
         jsonError.value = '';
     } catch (error) {
-        jsonError.value = 'Invalid JSON configuration';
+        jsonError.value = 'Invalid JSON syntax';
+        jsonWarnings.value = [];
     }
 });
 
@@ -472,12 +625,6 @@ const sanitizeFieldName = (fieldName: string): string => {
 </script>
 
 <style scoped>
-/* Base transitions */
-.form-fields-move {
-    transition: transform 0.5s ease;
-}
-
-/* Fade transition */
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.3s ease;
@@ -486,6 +633,26 @@ const sanitizeFieldName = (fieldName: string): string => {
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+
+/* Form fields transition */
+.form-fields-move {
+    transition: transform 0.3s ease;
+}
+
+.form-fields-enter-active,
+.form-fields-leave-active {
+    transition: all 0.3s ease;
+}
+
+.form-fields-enter-from,
+.form-fields-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.form-fields-leave-active {
+    position: absolute;
 }
 
 /* Field styling */
