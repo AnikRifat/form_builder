@@ -45,7 +45,9 @@ export const useFormBuilder = (props: { form: Form }) => {
             is_required: false,
             options: (type === 'select' || type === 'radio') ? [{ value: 'Option 1' }] : undefined,
             order: form.value.fields.length + 1,
-            showOptions: type === 'select' || type === 'radio'
+            showOptions: type === 'select' || type === 'radio',
+            isEditingLabel: false,
+            isEditingName: false
         };
     };
 

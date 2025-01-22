@@ -158,27 +158,50 @@
                                                         @dragover.prevent="onDragOver($event, index)" @dragenter.prevent
                                                         @drop.prevent="onDrop($event, index)">
                                                         <div class="flex justify-between items-start mb-4">
-                                                            <div class="flex items-center space-x-3">
-                                                                <!-- Drag Handle -->
-                                                                <div
-                                                                    class="text-gray-400 cursor-move hover:text-gray-600">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        class="w-5 h-5" viewBox="0 0 20 20"
-                                                                        fill="currentColor">
-                                                                        <path
-                                                                            d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z" />
-                                                                    </svg>
+                                                            <div class="flex-1 space-y-4">
+                                                                <!-- Field Label -->
+                                                                <div class="space-y-1">
+                                                                    <input
+                                                                        v-if="field.isEditingLabel"
+                                                                        v-model="field.label"
+                                                                        @blur="field.isEditingLabel = false"
+                                                                        @keyup.enter="field.isEditingLabel = false"
+                                                                        class="block w-full text-lg font-medium text-gray-900 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                                                        placeholder="Enter field label"
+                                                                    />
+                                                                    <div 
+                                                                        v-else
+                                                                        @click="field.isEditingLabel = true"
+                                                                        class="text-lg font-medium text-gray-900 cursor-pointer hover:bg-gray-50 p-2 rounded-md"
+                                                                    >
+                                                                        {{ field.label }}
+                                                                        <span class="ml-1 text-xs text-gray-400">(click to edit)</span>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="flex items-center space-x-2">
-                                                                    <h3 class="text-sm font-medium text-gray-900">{{
-                                                                        field.label }}</h3>
-                                                                    <span
-                                                                        class="px-2 py-1 text-xs font-medium rounded-full field-badge">
-                                                                        {{ field.type }}
-                                                                    </span>
+
+                                                                <!-- Field Name -->
+                                                                <div class="space-y-1">
+                                                                    <input
+                                                                        v-if="field.isEditingName"
+                                                                        v-model="field.name"
+                                                                        @blur="field.isEditingName = false"
+                                                                        @keyup.enter="field.isEditingName = false"
+                                                                        class="block w-full text-sm text-gray-500 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                                                        placeholder="Enter field name"
+                                                                    />
+                                                                    <div 
+                                                                        v-else
+                                                                        @click="field.isEditingName = true"
+                                                                        class="text-sm text-gray-500 cursor-pointer hover:bg-gray-50 p-2 rounded-md"
+                                                                    >
+                                                                        Field name: {{ field.name }}
+                                                                        <span class="ml-1 text-xs text-gray-400">(click to edit)</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="flex items-center space-x-2">
+
+                                                            <!-- Field Actions -->
+                                                            <div class="flex space-x-2">
                                                                 <button @click="removeField(index)"
                                                                     class="p-2 text-red-400 rounded-lg hover:text-red-500 hover:bg-red-50">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"

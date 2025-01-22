@@ -139,17 +139,17 @@
             leave-from="opacity-100 scale-100"
             leave-to="opacity-0 scale-95"
           >
-            <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+            <DialogPanel class="overflow-hidden p-6 w-full max-w-md text-left align-middle bg-white rounded-2xl shadow-xl transition-all transform">
               <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
                 Form Submission
               </DialogTitle>
 
               <div class="mt-4">
                 <!-- Error Message -->
-                <div v-if="submissionError" class="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                <div v-if="submissionError" class="p-4 mb-4 bg-red-50 rounded-md border border-red-200">
                   <div class="flex">
                     <div class="flex-shrink-0">
-                      <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <svg class="w-5 h-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                       </svg>
                     </div>
@@ -161,7 +161,7 @@
 
                 <!-- Form Data -->
                 <div class="space-y-4">
-                  <div v-for="field in form.fields" :key="field.id" class="border-b border-gray-200 pb-4">
+                  <div v-for="field in form.fields" :key="field.id" class="pb-4 border-b border-gray-200">
                     <h4 class="font-medium text-gray-700">{{ field.label }}</h4>
                     <p class="mt-1 text-sm text-gray-600">
                       {{ formatFieldValue(formData[field.name]) }}
@@ -175,10 +175,10 @@
                 Submitting form data...
               </div>
 
-              <div class="mt-6 flex justify-end space-x-3">
+              <div class="flex justify-end mt-6 space-x-3">
                 <button
                   type="button"
-                  class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  class="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 rounded-md border border-transparent hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   @click="showModal = false"
                   :disabled="isSubmitting"
                 >

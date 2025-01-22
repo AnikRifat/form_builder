@@ -11,6 +11,8 @@ export interface FormField {
   order: number;
   value?: any;
   showOptions?: boolean;
+  isEditingLabel?: boolean;
+  isEditingName?: boolean;
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;
