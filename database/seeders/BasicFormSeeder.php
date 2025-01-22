@@ -81,20 +81,7 @@ class BasicFormSeeder extends Seeder
                         'is_required' => true,
                         'order' => 6,
                     ],
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_7',
-                        'label' => 'Preferences',
-                        'placeholder' => '',
-                        'is_required' => false,
-                        'options' => [
-                            ['value' => 'Subscribe to newsletter'],
-                            ['value' => 'Receive email updates'],
-                            ['value' => 'Request callback']
-                        ],
-                        'order' => 7,
-                        'showOptions' => true
-                    ]
+
                 ]
             ],
             [
@@ -147,35 +134,7 @@ class BasicFormSeeder extends Seeder
                         'order' => 4,
                         'showOptions' => true
                     ],
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_12',
-                        'label' => 'Interests',
-                        'placeholder' => '',
-                        'is_required' => true,
-                        'options' => [
-                            ['value' => 'Company News'],
-                            ['value' => 'Product Updates'],
-                            ['value' => 'Industry Insights'],
-                            ['value' => 'Events & Webinars'],
-                            ['value' => 'Tips & Tutorials']
-                        ],
-                        'order' => 5,
-                        'showOptions' => true
-                    ],
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_13',
-                        'label' => 'Terms & Conditions',
-                        'placeholder' => '',
-                        'is_required' => true,
-                        'options' => [
-                            ['value' => 'I agree to receive marketing emails'],
-                            ['value' => 'I have read and accept the privacy policy']
-                        ],
-                        'order' => 6,
-                        'showOptions' => true
-                    ]
+
                 ]
             ],
             [
@@ -245,21 +204,7 @@ class BasicFormSeeder extends Seeder
                         'order' => 6,
                         'showOptions' => true
                     ],
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_20',
-                        'label' => 'Additional Requirements',
-                        'placeholder' => '',
-                        'is_required' => false,
-                        'options' => [
-                            ['value' => 'Vegetarian Meal'],
-                            ['value' => 'Parking Space'],
-                            ['value' => 'Accommodation'],
-                            ['value' => 'Special Assistance']
-                        ],
-                        'order' => 7,
-                        'showOptions' => true
-                    ],
+
                     [
                         'type' => 'textarea',
                         'name' => 'field_' . $timestamp . '_21',
@@ -268,19 +213,6 @@ class BasicFormSeeder extends Seeder
                         'is_required' => false,
                         'order' => 8,
                     ],
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_22',
-                        'label' => 'Terms & Conditions',
-                        'placeholder' => '',
-                        'is_required' => true,
-                        'options' => [
-                            ['value' => 'I agree to the event terms and conditions'],
-                            ['value' => 'I understand the cancellation policy']
-                        ],
-                        'order' => 9,
-                        'showOptions' => true
-                    ]
                 ]
             ]
         ];

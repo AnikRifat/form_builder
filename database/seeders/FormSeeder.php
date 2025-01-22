@@ -110,22 +110,6 @@ class FormSeeder extends Seeder
                         'showOptions' => true
                     ],
                     [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_9',
-                        'label' => 'Skills',
-                        'placeholder' => '',
-                        'is_required' => true,
-                        'options' => [
-                            ['value' => 'PHP'],
-                            ['value' => 'JavaScript'],
-                            ['value' => 'Vue.js'],
-                            ['value' => 'React'],
-                            ['value' => 'Laravel']
-                        ],
-                        'order' => 5,
-                        'showOptions' => true
-                    ],
-                    [
                         'type' => 'textarea',
                         'name' => 'field_' . $timestamp . '_10',
                         'label' => 'Cover Letter',
@@ -184,20 +168,6 @@ class FormSeeder extends Seeder
                         'order' => 4,
                         'showOptions' => true
                     ],
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_15',
-                        'label' => 'Additional Requirements',
-                        'placeholder' => '',
-                        'is_required' => false,
-                        'options' => [
-                            ['value' => 'Vegetarian Meal'],
-                            ['value' => 'Parking Pass'],
-                            ['value' => 'Hotel Booking']
-                        ],
-                        'order' => 5,
-                        'showOptions' => true
-                    ]
                 ]
             ]
         ];

@@ -212,25 +212,6 @@ class MedicalFormSeeder extends Seeder
                         'order' => 21,
                     ],
                     [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_22',
-                        'label' => 'Medical Conditions',
-                        'placeholder' => '',
-                        'is_required' => true,
-                        'options' => [
-                            ['value' => 'High Blood Pressure'],
-                            ['value' => 'Diabetes'],
-                            ['value' => 'Heart Disease'],
-                            ['value' => 'Asthma'],
-                            ['value' => 'Cancer'],
-                            ['value' => 'Arthritis'],
-                            ['value' => 'Depression/Anxiety'],
-                            ['value' => 'Other']
-                        ],
-                        'order' => 22,
-                        'showOptions' => true
-                    ],
-                    [
                         'type' => 'textarea',
                         'name' => 'field_' . $timestamp . '_23',
                         'label' => 'Previous Surgeries',
@@ -290,23 +271,6 @@ class MedicalFormSeeder extends Seeder
                             ['value' => '5+ times per week']
                         ],
                         'order' => 27,
-                        'showOptions' => true
-                    ],
-
-                    // Consent and Agreements
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_28',
-                        'label' => 'Consent and Agreements',
-                        'placeholder' => '',
-                        'is_required' => true,
-                        'options' => [
-                            ['value' => 'I consent to medical treatment'],
-                            ['value' => 'I authorize release of medical information'],
-                            ['value' => 'I agree to financial responsibility'],
-                            ['value' => 'I acknowledge receipt of privacy practices']
-                        ],
-                        'order' => 28,
                         'showOptions' => true
                     ]
                 ]

@@ -229,36 +229,6 @@ class BusinessFormSeeder extends Seeder
                         'is_required' => true,
                         'order' => 21,
                     ],
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_22',
-                        'label' => 'Documentation Checklist',
-                        'placeholder' => '',
-                        'is_required' => true,
-                        'options' => [
-                            ['value' => 'Business Plan Attached'],
-                            ['value' => 'Financial Statements Attached'],
-                            ['value' => 'Tax Returns Attached'],
-                            ['value' => 'Bank Statements Attached'],
-                            ['value' => 'Legal Documents Attached']
-                        ],
-                        'order' => 22,
-                        'showOptions' => true
-                    ],
-                    [
-                        'type' => 'checkbox',
-                        'name' => 'field_' . $timestamp . '_23',
-                        'label' => 'Declarations',
-                        'placeholder' => '',
-                        'is_required' => true,
-                        'options' => [
-                            ['value' => 'I confirm all information is accurate'],
-                            ['value' => 'I authorize credit check'],
-                            ['value' => 'I agree to the terms and conditions']
-                        ],
-                        'order' => 23,
-                        'showOptions' => true
-                    ]
                 ]
             ]
         ];
