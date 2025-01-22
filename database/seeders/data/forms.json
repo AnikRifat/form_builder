@@ -1,0 +1,239 @@
+{
+    "forms": [
+        {
+            "title": "Contact Form",
+            "method": "POST",
+            "action": "/contact",
+            "is_active": true,
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "name",
+                    "label": "Full Name",
+                    "placeholder": "Enter your name",
+                    "is_required": true
+                },
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "Email Address",
+                    "placeholder": "Enter your email",
+                    "is_required": true
+                },
+                {
+                    "type": "textarea",
+                    "name": "message",
+                    "label": "Message",
+                    "placeholder": "Your message here",
+                    "is_required": true
+                }
+            ]
+        },
+        {
+            "title": "Newsletter Subscription",
+            "method": "POST",
+            "action": "/subscribe",
+            "is_active": true,
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "name",
+                    "label": "Name",
+                    "placeholder": "Your name",
+                    "is_required": true
+                },
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "Email",
+                    "placeholder": "Your email address",
+                    "is_required": true
+                },
+                {
+                    "type": "select",
+                    "name": "frequency",
+                    "label": "Email Frequency",
+                    "is_required": true,
+                    "options": ["Daily", "Weekly", "Monthly"]
+                },
+                {
+                    "type": "checkbox",
+                    "name": "terms",
+                    "label": "I agree to receive newsletters",
+                    "is_required": true
+                }
+            ]
+        },
+        {
+            "title": "Customer Feedback Survey",
+            "method": "POST",
+            "action": "/survey",
+            "is_active": true,
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "name",
+                    "label": "Name",
+                    "placeholder": "Your name",
+                    "is_required": false
+                },
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "Email",
+                    "placeholder": "Your email",
+                    "is_required": true
+                },
+                {
+                    "type": "select",
+                    "name": "age_group",
+                    "label": "Age Group",
+                    "is_required": true,
+                    "options": ["18-24", "25-34", "35-44", "45-54", "55+"]
+                },
+                {
+                    "type": "radio",
+                    "name": "satisfaction",
+                    "label": "Overall Satisfaction",
+                    "is_required": true,
+                    "options": ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"]
+                },
+                {
+                    "type": "checkbox",
+                    "name": "improvements",
+                    "label": "Areas for Improvement",
+                    "is_required": false,
+                    "options": ["Service", "Product Quality", "Price", "Support", "Website"]
+                },
+                {
+                    "type": "textarea",
+                    "name": "comments",
+                    "label": "Additional Comments",
+                    "placeholder": "Please share any additional feedback",
+                    "is_required": false
+                }
+            ]
+        },
+        {
+            "title": "Job Application Form",
+            "method": "POST",
+            "action": "/apply-job",
+            "is_active": true,
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "full_name",
+                    "label": "Full Name",
+                    "placeholder": "Enter your full name",
+                    "is_required": true
+                },
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "Email Address",
+                    "placeholder": "Enter your email",
+                    "is_required": true
+                },
+                {
+                    "type": "text",
+                    "name": "phone",
+                    "label": "Phone Number",
+                    "placeholder": "Enter your phone number",
+                    "is_required": true
+                },
+                {
+                    "type": "select",
+                    "name": "position",
+                    "label": "Position Applied For",
+                    "is_required": true,
+                    "options": ["Software Engineer", "Product Manager", "UI/UX Designer", "DevOps Engineer", "QA Engineer"]
+                },
+                {
+                    "type": "select",
+                    "name": "experience",
+                    "label": "Years of Experience",
+                    "is_required": true,
+                    "options": ["0-1 years", "1-3 years", "3-5 years", "5-10 years", "10+ years"]
+                },
+                {
+                    "type": "checkbox",
+                    "name": "skills",
+                    "label": "Skills",
+                    "is_required": true,
+                    "options": ["PHP", "JavaScript", "Python", "React", "Vue", "Docker", "AWS"]
+                },
+                {
+                    "type": "textarea",
+                    "name": "cover_letter",
+                    "label": "Cover Letter",
+                    "placeholder": "Tell us why you would be a good fit for this position",
+                    "is_required": true
+                }
+            ]
+        },
+        {
+            "title": "Bug Report Form",
+            "method": "POST",
+            "action": "/report-bug",
+            "is_active": true,
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "reporter_name",
+                    "label": "Your Name",
+                    "placeholder": "Enter your name",
+                    "is_required": true
+                },
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "Email Address",
+                    "placeholder": "Enter your email",
+                    "is_required": true
+                },
+                {
+                    "type": "select",
+                    "name": "browser",
+                    "label": "Browser",
+                    "is_required": true,
+                    "options": ["Chrome", "Firefox", "Safari", "Edge", "Other"]
+                },
+                {
+                    "type": "select",
+                    "name": "severity",
+                    "label": "Bug Severity",
+                    "is_required": true,
+                    "options": ["Critical", "High", "Medium", "Low"]
+                },
+                {
+                    "type": "text",
+                    "name": "page_url",
+                    "label": "Page URL",
+                    "placeholder": "Enter the page URL where you found the bug",
+                    "is_required": true
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Bug Description",
+                    "placeholder": "Please describe the bug in detail",
+                    "is_required": true
+                },
+                {
+                    "type": "textarea",
+                    "name": "steps",
+                    "label": "Steps to Reproduce",
+                    "placeholder": "List the steps to reproduce this bug",
+                    "is_required": true
+                },
+                {
+                    "type": "checkbox",
+                    "name": "attachments",
+                    "label": "Include Attachments",
+                    "is_required": false,
+                    "options": ["Screenshots", "Console Logs", "Video Recording"]
+                }
+            ]
+        }
+    ]
+}
