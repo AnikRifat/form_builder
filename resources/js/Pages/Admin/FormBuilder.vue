@@ -400,10 +400,10 @@ const onDrop = (event: DragEvent, targetIndex: number) => {
     if (action === 'reorder' && draggedIndex.value !== -1) {
         // Remove the field from its original position
         form.value.fields.splice(draggedIndex.value, 1);
-        
+
         // Adjust target index if needed
         const adjustedIndex = targetIndex > draggedIndex.value ? targetIndex - 1 : targetIndex;
-        
+
         // Insert the field at the new position
         form.value.fields.splice(adjustedIndex, 0, draggedField.value);
     } else if (action === 'add' && draggedField.value.type) {
@@ -414,7 +414,7 @@ const onDrop = (event: DragEvent, targetIndex: number) => {
     // Reset drag state
     draggedField.value = null;
     draggedIndex.value = -1;
-    
+
     // Update field orders
     updateFieldOrders();
 };
