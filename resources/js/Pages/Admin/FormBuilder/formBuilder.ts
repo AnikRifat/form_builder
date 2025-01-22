@@ -19,7 +19,6 @@ export const useFormBuilder = (props: { form: Form }) => {
         { type: 'email', label: 'Email Input' },
         { type: 'textarea', label: 'Text Area' },
         { type: 'select', label: 'Select Box' },
-        { type: 'checkbox', label: 'Checkbox' },
         { type: 'radio', label: 'Radio Button' },
     ];
 

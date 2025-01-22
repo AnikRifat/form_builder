@@ -1,98 +1,163 @@
 <template>
-  <Head>
-    <title>{{ form.title }} - Form Display</title>
-  </Head>
-  <div>
-    <AuthenticatedLayout>
-      <template #header>
-        <div class="flex justify-between items-center">
-          <h1 class="text-3xl font-bold text-gray-900">{{ form.title }}</h1>
-          <Link :href="route('forms.index')" class="px-4 py-2 text-sm font-medium text-gray-600 bg-white rounded-md border border-gray-300 hover:bg-gray-50">
-            Back to Forms
-          </Link>
-        </div>
-      </template>
-      <div class="py-12">
-        <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
-          <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
-            <!-- Form Header -->
-            <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
-              <h2 class="text-xl font-semibold text-gray-800">{{ form.title }}</h2>
-              <p v-if="form.description" class="mt-1 text-sm text-gray-600">{{ form.description }}</p>
-            </div>
+  <Head :title="form.title" />
 
-            <!-- Form Body -->
-            <div class="p-6">
-              <form @submit.prevent="submitForm" class="space-y-6">
-                <div v-for="field in form.fields" :key="field.id" class="p-4 bg-white rounded-lg border border-gray-200">
-                  <label :for="field.name" class="block text-sm font-medium text-gray-700">
-                    {{ field.label }}
-                    <span v-if="field.is_required" class="text-red-500">*</span>
-                  </label>
+  <AuthenticatedLayout>
+    <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto bg-white shadow sm:rounded-lg overflow-hidden form-container">
+          <!-- Form Header -->
+          <div class="px-4 py-5 border-b border-gray-200 sm:px-6 form-header">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">{{ form.title }}</h3>
+            <p class="mt-1 text-sm text-gray-500">{{ form.description }}</p>
+          </div>
 
-                  <!-- Text & Email Inputs -->
-                  <input v-if="field.type === 'text' || field.type === 'email'" v-model="formData[field.name]" :id="field.name" :type="field.type" :placeholder="field.placeholder" :required="field.is_required" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+          <!-- Form Body -->
+          <div class="px-4 py-5 sm:p-6 form-content">
+            <form @submit.prevent="handleSubmit" class="space-y-6">
+              <div v-for="field in form.fields" :key="field.id" class="p-4 bg-white rounded-lg border border-gray-200">
+                <label :for="field.name" class="block text-sm font-medium text-gray-700 field-label">
+                  {{ field.label }}
+                  <span v-if="field.is_required" class="text-red-500">*</span>
+                </label>
 
-                  <!-- Textarea -->
-                  <textarea v-if="field.type === 'textarea'" v-model="formData[field.name]" :id="field.name" :placeholder="field.placeholder" :required="field.is_required" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                <!-- Text Input -->
+                <input
+                  v-if="field.type === 'text' || field.type === 'email'"
+                  :id="field.name"
+                  v-model="formData[field.name]"
+                  :type="field.type"
+                  :required="field.is_required"
+                  :placeholder="field.placeholder"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
+                />
 
-                  <!-- Select Box -->
-                  <select v-if="field.type === 'select'" v-model="formData[field.name]" :id="field.name" :required="field.is_required" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                    <option value="" disabled>Please select an option</option>
-                    <option v-for="option in field.options" :key="option.value" :value="option.value">
+                <!-- Textarea -->
+                <textarea
+                  v-if="field.type === 'textarea'"
+                  :id="field.name"
+                  v-model="formData[field.name]"
+                  :required="field.is_required"
+                  :placeholder="field.placeholder"
+                  rows="4"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
+                />
+
+                <!-- Select Box -->
+                <select
+                  v-if="field.type === 'select'"
+                  :id="field.name"
+                  v-model="formData[field.name]"
+                  :required="field.is_required"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
+                >
+                  <option value="" disabled>Please select an option</option>
+                  <option v-for="option in field.options" :key="option.value" :value="option.value">
+                    {{ option.value }}
+                  </option>
+                </select>
+
+                <!-- Radio Buttons -->
+                <div v-if="field.type === 'radio'" class="mt-4 space-y-3">
+                  <div
+                    v-for="option in field.options"
+                    :key="option.value"
+                    class="relative flex items-center p-4 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 transition duration-150"
+                  >
+                    <input
+                      :id="field.name + '-' + option.value"
+                      v-model="formData[field.name]"
+                      :name="field.name"
+                      type="radio"
+                      :value="option.value"
+                      :required="field.is_required"
+                      class="h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                    />
+                    <label :for="field.name + '-' + option.value" class="ml-3 block text-sm font-medium text-gray-700 cursor-pointer">
                       {{ option.value }}
-                    </option>
-                  </select>
-
-                  <!-- Radio Buttons -->
-                  <div v-if="field.type === 'radio'" class="mt-2 space-y-2">
-                    <div v-for="option in field.options" :key="option.value" class="flex items-center">
-                      <input :id="field.name + '-' + option.value" v-model="formData[field.name]" :name="field.name" type="radio" :value="option.value" :required="field.is_required" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300" />
-                      <label :for="field.name + '-' + option.value" class="ml-3 block text-sm font-medium text-gray-700">
-                        {{ option.value }}
-                      </label>
-                    </div>
+                    </label>
                   </div>
-
-                  <!-- Checkboxes -->
-                  <div v-if="field.type === 'checkbox'" class="mt-2">
-                    <template v-if="field.options">
-                      <div v-for="option in field.options" :key="option.value" class="flex items-center mb-2">
-                        <input :id="field.name + '-' + option.value" v-model="formData[field.name]" type="checkbox" :value="option.value" :required="field.is_required" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" />
-                        <label :for="field.name + '-' + option.value" class="ml-3 block text-sm font-medium text-gray-700">
-                          {{ option.value }}
-                        </label>
-                      </div>
-                    </template>
-                    <template v-else>
-                      <div class="flex items-center">
-                        <input :id="field.name" v-model="formData[field.name]" type="checkbox" :required="field.is_required" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" />
-                        <label :for="field.name" class="ml-3 block text-sm font-medium text-gray-700">
-                          {{ field.label }}
-                        </label>
-                      </div>
-                    </template>
-                  </div>
-
-                  <!-- Field Description/Help Text -->
-                  <p v-if="field.placeholder && field.type !== 'text' && field.type !== 'email' && field.type !== 'textarea'" class="mt-2 text-sm text-gray-500">
-                    {{ field.placeholder }}
-                  </p>
                 </div>
 
-                <!-- Submit Button -->
-                <div class="pt-5 border-t border-gray-200">
-                  <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Submit Form
-                  </button>
-                </div>
-              </form>
-            </div>
+                <!-- Field Description -->
+                <p v-if="field.placeholder && field.type !== 'text' && field.type !== 'email' && field.type !== 'textarea'" class="mt-2 text-sm text-gray-500">
+                  {{ field.placeholder }}
+                </p>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="flex justify-end form-footer">
+                <button
+                  type="submit"
+                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed submit-button"
+                  :disabled="isSubmitting"
+                >
+                  {{ isSubmitting ? 'Submitting...' : 'Submit' }}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </AuthenticatedLayout>
-  </div>
+    </div>
+  </AuthenticatedLayout>
+
+  <!-- Submission Modal -->
+  <TransitionRoot appear :show="showModal" as="template">
+    <Dialog as="div" @close="showModal = false" class="relative z-10">
+      <TransitionChild
+        as="template"
+        enter="duration-300 ease-out"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="duration-200 ease-in"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
+        <div class="fixed inset-0 bg-black bg-opacity-25" />
+      </TransitionChild>
+
+      <div class="fixed inset-0 overflow-y-auto">
+        <div class="flex min-h-full items-center justify-center p-4 text-center">
+          <TransitionChild
+            as="template"
+            enter="duration-300 ease-out"
+            enter-from="opacity-0 scale-95"
+            enter-to="opacity-100 scale-100"
+            leave="duration-200 ease-in"
+            leave-from="opacity-100 scale-100"
+            leave-to="opacity-0 scale-95"
+          >
+            <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
+                Form Submission
+              </DialogTitle>
+
+              <div class="mt-4">
+                <div class="space-y-4">
+                  <div v-for="field in form.fields" :key="field.id" class="border-b border-gray-200 pb-4">
+                    <h4 class="font-medium text-gray-700">{{ field.label }}</h4>
+                    <p class="mt-1 text-sm text-gray-600">
+                      {{ formatFieldValue(formData[field.name]) }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 flex justify-end">
+                <button
+                  type="button"
+                  class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  @click="showModal = false"
+                >
+                  Close
+                </button>
+              </div>
+            </DialogPanel>
+          </TransitionChild>
+        </div>
+      </div>
+    </Dialog>
+  </TransitionRoot>
 </template>
 
 <script setup lang="ts">
@@ -100,6 +165,7 @@ import { defineProps, ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Form, FormField } from '@/types/form';
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
 interface Props {
   form: Form;
@@ -107,27 +173,38 @@ interface Props {
 
 const props = defineProps<Props>();
 const formData = ref<Record<string, any>>({});
+const isSubmitting = ref(false);
+const showModal = ref(false);
 
 // Initialize form data with appropriate data types
 const initializeFormData = () => {
   props.form.fields.forEach(field => {
-    if (field.type === 'checkbox' && field.options) {
-      formData.value[field.name] = [];
-    } else if (field.type === 'checkbox' && !field.options) {
-      formData.value[field.name] = false;
-    } else {
-      formData.value[field.name] = '';
-    }
+    formData.value[field.name] = '';
   });
 };
 
-// Initialize form data when component mounts
-initializeFormData();
-
-const submitForm = () => {
-  // Here you would typically send the form data to your backend
-  console.log('Form submitted with data:', formData.value);
-  // You can use Inertia to submit the form
-  // router.post(route('forms.submit', props.form.id), formData.value);
+// Format field values for display
+const formatFieldValue = (value: any): string => {
+  if (!value) return 'Not provided';
+  return String(value);
 };
+
+// Handle form submission
+const handleSubmit = async (e: Event) => {
+  e.preventDefault();
+  isSubmitting.value = true;
+
+  try {
+    // Here you would typically send the data to your backend
+    // For now, we'll just show the modal with the form data
+    showModal.value = true;
+  } catch (error) {
+    console.error('Error submitting form:', error);
+  } finally {
+    isSubmitting.value = false;
+  }
+};
+
+// Initialize form data on component mount
+initializeFormData();
 </script>
