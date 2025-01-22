@@ -124,7 +124,7 @@
                                                         ]"
                                                         :data-type="field.type"
                                                         draggable="true"
-                                                        @dragstart="onDragStart($event, field)"
+                                                        @dragstart="onDragStart($event, { type: field.type, label: field.label })"
                                                         @dragend="onDragEnd"
                                                         @dragover.prevent="onDragOver($event, index)"
                                                         @dragenter.prevent
@@ -244,7 +244,7 @@
 </template>
 
 <script setup lang="ts">
-import { useFormBuilder } from './formBuilder.ts';
+import { useFormBuilder } from './formBuilder';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { TrashIcon, PlusIcon } from '@heroicons/vue/24/outline';
 import { Form, FormField } from '@/types/form';

@@ -14,7 +14,7 @@ class FormController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/FormList', [
+        return Inertia::render('Admin/FormList/Index', [
             'forms' => Form::with('fields')
                 ->orderBy('created_at', 'desc')
                 ->get(),
@@ -26,7 +26,7 @@ class FormController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/FormBuilder', [
+        return Inertia::render('Admin/FormBuilder/Index', [
             'form' => new Form(['method' => 'POST', 'action' => '/submit']),
         ]);
     }
@@ -51,7 +51,7 @@ class FormController extends Controller
      */
     public function show(Form $form)
     {
-        return Inertia::render('Admin/FormBuilder', [
+        return Inertia::render('Admin/FormBuilder/Index', [
             'form' => $form->load('fields'),
         ]);
     }
@@ -61,7 +61,7 @@ class FormController extends Controller
      */
     public function edit(Form $form)
     {
-        return Inertia::render('Admin/FormBuilder', [
+        return Inertia::render('Admin/FormBuilder/Index', [
             'form' => $form->load('fields'),
         ]);
     }
@@ -99,7 +99,7 @@ class FormController extends Controller
      */
     public function view(Form $form)
     {
-        return Inertia::render('Admin/FormDisplay', [
+        return Inertia::render('Admin/FormDisplay/Index', [
             'form' => $form->load('fields'),
             'config' => $form->config // Assuming there's a config field in the Form model
         ]);
