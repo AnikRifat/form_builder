@@ -30,30 +30,34 @@
 
 /* Field styling */
 .form-field {
-    cursor: move;
-    user-select: none;
     position: relative;
-    background: white;
-    transition: all 0.3s ease;
+    cursor: move;
+    transition: all 0.2s ease-in-out;
 }
 
 /* Dragging state */
 .form-field.dragging {
+    opacity: 0.5;
+    border-style: dashed !important;
     transform: scale(1.02);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 /* Drag over indicator */
+.form-field.is-over {
+    position: relative;
+}
+
 .form-field.is-over::before {
     content: '';
     position: absolute;
-    top: -2px;
     left: 0;
     right: 0;
-    height: 2px;
-    background: #3b82f6;
-    transform: scaleX(1);
-    transition: transform 0.2s ease;
+    top: -8px;
+    height: 4px;
+    background-color: #3B82F6;
+    border-radius: 2px;
+    z-index: 10;
 }
 
 /* Container styling */
@@ -81,4 +85,113 @@
 .cursor-move:hover {
     transform: scale(1.1);
     color: #4B5563;
+}
+
+/* Field type colors */
+.form-field[data-type="text"] {
+    border-color: #60A5FA;
+}
+
+.form-field[data-type="text"]:hover {
+    background-color: #EFF6FF;
+}
+
+.form-field[data-type="text"] .field-icon {
+    background-color: #EFF6FF;
+    color: #60A5FA;
+}
+
+.form-field[data-type="text"] .field-badge {
+    background-color: #DBEAFE;
+    color: #1D4ED8;
+}
+
+.form-field[data-type="email"] {
+    border-color: #34D399;
+}
+
+.form-field[data-type="email"]:hover {
+    background-color: #ECFDF5;
+}
+
+.form-field[data-type="email"] .field-icon {
+    background-color: #ECFDF5;
+    color: #34D399;
+}
+
+.form-field[data-type="email"] .field-badge {
+    background-color: #D1FAE5;
+    color: #047857;
+}
+
+.form-field[data-type="textarea"] {
+    border-color: #F472B6;
+}
+
+.form-field[data-type="textarea"]:hover {
+    background-color: #FCE7F3;
+}
+
+.form-field[data-type="textarea"] .field-icon {
+    background-color: #FCE7F3;
+    color: #F472B6;
+}
+
+.form-field[data-type="textarea"] .field-badge {
+    background-color: #FBCFE8;
+    color: #BE185D;
+}
+
+.form-field[data-type="select"] {
+    border-color: #A78BFA;
+}
+
+.form-field[data-type="select"]:hover {
+    background-color: #F5F3FF;
+}
+
+.form-field[data-type="select"] .field-icon {
+    background-color: #F5F3FF;
+    color: #A78BFA;
+}
+
+.form-field[data-type="select"] .field-badge {
+    background-color: #EDE9FE;
+    color: #6D28D9;
+}
+
+.form-field[data-type="radio"] {
+    border-color: #FBBF24;
+}
+
+.form-field[data-type="radio"]:hover {
+    background-color: #FFFBEB;
+}
+
+.form-field[data-type="radio"] .field-icon {
+    background-color: #FFFBEB;
+    color: #FBBF24;
+}
+
+.form-field[data-type="radio"] .field-badge {
+    background-color: #FEF3C7;
+    color: #B45309;
+}
+
+.form-field[data-type="checkbox"] {
+    border-color: #6EE7B7;
+}
+
+.form-field[data-type="checkbox"]:hover {
+    background-color: #ECFDF5;
+}
+
+.form-field[data-type="checkbox"] .field-icon {
+    background-color: #ECFDF5;
+    color: #6EE7B7;
+}
+
+.form-field[data-type="checkbox"] .field-badge {
+    background-color: #D1FAE5;
+    color: #065F46;
 }

@@ -59,25 +59,14 @@
                                                 <div class="space-y-3">
                                                     <div v-for="field in fieldTypes" :key="field.type"
                                                         :class="[
-                                                            'p-4 bg-white rounded-lg border-2 shadow-sm cursor-move transition-all duration-200',
-                                                            {
-                                                                'border-blue-200 hover:border-blue-500': field.type === 'text' || field.type === 'email' || field.type === 'radio',
-                                                                'border-green-200 hover:border-green-500': field.type === 'textarea' || field.type === 'checkbox',
-                                                                'border-black border-opacity-20 hover:border-black': field.type === 'select'
-                                                            }
+                                                            'p-4 bg-white rounded-lg border-2 shadow-sm cursor-move transition-all duration-200 form-field',
                                                         ]"
+                                                        :data-type="field.type"
                                                         draggable="true"
-                                                        @dragstart="onDragStart($event, field)"
+                                                        @dragstart="onDragStart($event, { type: field.type, label: field.label })"
                                                         @dragend="onDragEnd">
                                                         <div class="flex items-center space-x-3">
-                                                            <div :class="[
-                                                                'flex items-center justify-center w-10 h-10 rounded-lg',
-                                                                {
-                                                                    'bg-blue-50 text-blue-600': field.type === 'text' || field.type === 'email' || field.type === 'radio',
-                                                                    'bg-green-50 text-green-600': field.type === 'textarea' || field.type === 'checkbox',
-                                                                    'bg-black bg-opacity-5 text-black': field.type === 'select'
-                                                                }
-                                                            ]">
+                                                            <div class="field-icon flex items-center justify-center w-10 h-10 rounded-lg">
                                                                 <!-- Field Type Icons -->
                                                                 <svg v-if="field.type === 'text'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
@@ -90,7 +79,7 @@
                                                                     <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm2-1h10a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z" clip-rule="evenodd" />
                                                                 </svg>
                                                                 <svg v-if="field.type === 'select'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 01-1 1h-3a1 1 0 110-2h3V8a1 1 0 011-1V4a1 1 0 110-2h-3a1 1 0 010-2h3V5z" clip-rule="evenodd" />
                                                                 </svg>
                                                                 <svg v-if="field.type === 'radio'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -102,14 +91,7 @@
                                                             <div>
                                                                 <div class="flex items-center space-x-2">
                                                                     <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
-                                                                    <span :class="[
-                                                                        'px-2 py-1 text-xs font-medium rounded-full',
-                                                                        {
-                                                                            'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email' || field.type === 'radio',
-                                                                            'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
-                                                                            'bg-gray-100 text-gray-700': field.type === 'select'
-                                                                        }
-                                                                    ]">
+                                                                    <span class="field-badge px-2 py-1 text-xs font-medium rounded-full">
                                                                         {{ field.type }}
                                                                     </span>
                                                                 </div>
@@ -128,26 +110,25 @@
                                                 <TransitionGroup
                                                     name="form-fields"
                                                     tag="div"
-                                                    class="space-y-4 form-fields-container"
+                                                    class="space-y-4 min-h-[200px]"
+                                                    @dragover.prevent
+                                                    @drop.prevent="onDrop($event, form.fields.length)"
                                                 >
                                                     <div v-for="(field, index) in form.fields" :key="field.id"
                                                         :class="[
                                                             'form-field p-6 bg-white rounded-lg border-2 shadow-sm transition-all duration-200',
                                                             {
-                                                                'border-blue-100 hover:border-blue-300': field.type === 'text' || field.type === 'email',
-                                                                'border-green-100 hover:border-green-300': field.type === 'textarea',
-                                                                'border-black border-opacity-10 hover:border-opacity-30': field.type === 'select',
-                                                                'border-blue-100 hover:border-blue-300': field.type === 'radio',
-                                                                'border-green-100 hover:border-green-300': field.type === 'checkbox',
                                                                 'dragging': draggedField?.id === field.id,
                                                                 'is-over': dragOverIndex === index
                                                             }
                                                         ]"
+                                                        :data-type="field.type"
                                                         draggable="true"
                                                         @dragstart="onDragStart($event, field)"
                                                         @dragend="onDragEnd"
                                                         @dragover.prevent="onDragOver($event, index)"
-                                                        @drop="onDrop($event, index)">
+                                                        @dragenter.prevent
+                                                        @drop.prevent="onDrop($event, index)">
                                                         <div class="flex justify-between items-start mb-4">
                                                             <div class="flex items-center space-x-3">
                                                                 <!-- Drag Handle -->
@@ -158,15 +139,7 @@
                                                                 </div>
                                                                 <div class="flex items-center space-x-2">
                                                                     <h3 class="text-sm font-medium text-gray-900">{{ field.label }}</h3>
-                                                                    <span :class="[
-                                                                        'px-2 py-1 text-xs font-medium rounded-full',
-                                                                        {
-                                                                            'bg-blue-100 text-blue-700': field.type === 'text' || field.type === 'email',
-                                                                            'bg-green-100 text-green-700': field.type === 'textarea' || field.type === 'checkbox',
-                                                                            'bg-gray-100 text-gray-700': field.type === 'select',
-                                                                            'bg-blue-100 text-blue-700': field.type === 'radio'
-                                                                        }
-                                                                    ]">
+                                                                    <span class="field-badge px-2 py-1 text-xs font-medium rounded-full">
                                                                         {{ field.type }}
                                                                     </span>
                                                                 </div>
@@ -222,12 +195,10 @@
 
                                                     <!-- Empty State -->
                                                     <div v-if="!form.fields.length"
-                                                        class="p-12 text-center rounded-lg border-2 border-gray-300 border-dashed">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5 5a1 1 0 01-.293.707V17a2 2 0 01-2 2z" />
-                                                        </svg>
-                                                        <h3 class="mt-2 text-sm font-medium text-gray-900">No fields added</h3>
-                                                        <p class="mt-1 text-sm text-gray-500">Drag fields from the palette to start building your form</p>
+                                                        class="p-12 text-center rounded-lg border-2 border-gray-300 border-dashed"
+                                                        @dragover.prevent
+                                                        @drop.prevent="onDrop($event, 0)">
+                                                        <p class="text-gray-500">Drag and drop fields here to start building your form</p>
                                                     </div>
                                                 </TransitionGroup>
                                             </div>
