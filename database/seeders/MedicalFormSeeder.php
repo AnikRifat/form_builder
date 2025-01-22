@@ -21,7 +21,7 @@ class MedicalFormSeeder extends Seeder
                     // Personal Information
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_1',
+                        'name' => 'field_'.$timestamp.'_1',
                         'label' => 'Full Legal Name',
                         'placeholder' => 'Enter your full legal name',
                         'is_required' => true,
@@ -29,7 +29,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_2',
+                        'name' => 'field_'.$timestamp.'_2',
                         'label' => 'Date of Birth',
                         'placeholder' => 'MM/DD/YYYY',
                         'is_required' => true,
@@ -37,7 +37,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_3',
+                        'name' => 'field_'.$timestamp.'_3',
                         'label' => 'Gender',
                         'placeholder' => '',
                         'is_required' => true,
@@ -45,14 +45,14 @@ class MedicalFormSeeder extends Seeder
                             ['value' => 'Male'],
                             ['value' => 'Female'],
                             ['value' => 'Other'],
-                            ['value' => 'Prefer not to say']
+                            ['value' => 'Prefer not to say'],
                         ],
                         'order' => 3,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_4',
+                        'name' => 'field_'.$timestamp.'_4',
                         'label' => 'Social Security Number',
                         'placeholder' => 'XXX-XX-XXXX',
                         'is_required' => true,
@@ -60,7 +60,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_5',
+                        'name' => 'field_'.$timestamp.'_5',
                         'label' => 'Marital Status',
                         'placeholder' => 'Enter marital status',
                         'is_required' => true,
@@ -70,7 +70,7 @@ class MedicalFormSeeder extends Seeder
                     // Contact Information
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_6',
+                        'name' => 'field_'.$timestamp.'_6',
                         'label' => 'Street Address',
                         'placeholder' => 'Enter your street address',
                         'is_required' => true,
@@ -78,7 +78,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_7',
+                        'name' => 'field_'.$timestamp.'_7',
                         'label' => 'City',
                         'placeholder' => 'Enter city',
                         'is_required' => true,
@@ -86,7 +86,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_8',
+                        'name' => 'field_'.$timestamp.'_8',
                         'label' => 'State/Province',
                         'placeholder' => 'Enter state/province',
                         'is_required' => true,
@@ -94,7 +94,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_9',
+                        'name' => 'field_'.$timestamp.'_9',
                         'label' => 'Postal Code',
                         'placeholder' => 'Enter postal code',
                         'is_required' => true,
@@ -102,7 +102,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_10',
+                        'name' => 'field_'.$timestamp.'_10',
                         'label' => 'Home Phone',
                         'placeholder' => 'Enter home phone',
                         'is_required' => false,
@@ -110,7 +110,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_11',
+                        'name' => 'field_'.$timestamp.'_11',
                         'label' => 'Mobile Phone',
                         'placeholder' => 'Enter mobile phone',
                         'is_required' => true,
@@ -118,7 +118,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'email',
-                        'name' => 'field_' . $timestamp . '_12',
+                        'name' => 'field_'.$timestamp.'_12',
                         'label' => 'Email Address',
                         'placeholder' => 'Enter email address',
                         'is_required' => true,
@@ -128,7 +128,7 @@ class MedicalFormSeeder extends Seeder
                     // Emergency Contact
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_13',
+                        'name' => 'field_'.$timestamp.'_13',
                         'label' => 'Emergency Contact Name',
                         'placeholder' => 'Enter emergency contact name',
                         'is_required' => true,
@@ -136,7 +136,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_14',
+                        'name' => 'field_'.$timestamp.'_14',
                         'label' => 'Emergency Contact Phone',
                         'placeholder' => 'Enter emergency contact phone',
                         'is_required' => true,
@@ -144,7 +144,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_15',
+                        'name' => 'field_'.$timestamp.'_15',
                         'label' => 'Relationship to Patient',
                         'placeholder' => '',
                         'is_required' => true,
@@ -154,16 +154,16 @@ class MedicalFormSeeder extends Seeder
                             ['value' => 'Child'],
                             ['value' => 'Sibling'],
                             ['value' => 'Friend'],
-                            ['value' => 'Other']
+                            ['value' => 'Other'],
                         ],
                         'order' => 15,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
 
                     // Insurance Information
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_16',
+                        'name' => 'field_'.$timestamp.'_16',
                         'label' => 'Insurance Provider',
                         'placeholder' => 'Enter insurance provider name',
                         'is_required' => true,
@@ -171,7 +171,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_17',
+                        'name' => 'field_'.$timestamp.'_17',
                         'label' => 'Policy Number',
                         'placeholder' => 'Enter policy number',
                         'is_required' => true,
@@ -179,7 +179,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_18',
+                        'name' => 'field_'.$timestamp.'_18',
                         'label' => 'Group Number',
                         'placeholder' => 'Enter group number',
                         'is_required' => true,
@@ -187,7 +187,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_19',
+                        'name' => 'field_'.$timestamp.'_19',
                         'label' => 'Policy Holder Name',
                         'placeholder' => 'Enter policy holder name',
                         'is_required' => true,
@@ -197,7 +197,7 @@ class MedicalFormSeeder extends Seeder
                     // Medical History
                     [
                         'type' => 'textarea',
-                        'name' => 'field_' . $timestamp . '_20',
+                        'name' => 'field_'.$timestamp.'_20',
                         'label' => 'Current Medications',
                         'placeholder' => 'List all current medications and dosages',
                         'is_required' => true,
@@ -205,7 +205,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'textarea',
-                        'name' => 'field_' . $timestamp . '_21',
+                        'name' => 'field_'.$timestamp.'_21',
                         'label' => 'Allergies',
                         'placeholder' => 'List any known allergies',
                         'is_required' => true,
@@ -213,7 +213,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'textarea',
-                        'name' => 'field_' . $timestamp . '_23',
+                        'name' => 'field_'.$timestamp.'_23',
                         'label' => 'Previous Surgeries',
                         'placeholder' => 'List any previous surgeries and dates',
                         'is_required' => false,
@@ -221,7 +221,7 @@ class MedicalFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'textarea',
-                        'name' => 'field_' . $timestamp . '_24',
+                        'name' => 'field_'.$timestamp.'_24',
                         'label' => 'Family Medical History',
                         'placeholder' => 'Describe relevant family medical history',
                         'is_required' => true,
@@ -231,21 +231,21 @@ class MedicalFormSeeder extends Seeder
                     // Lifestyle Information
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_25',
+                        'name' => 'field_'.$timestamp.'_25',
                         'label' => 'Smoking Status',
                         'placeholder' => '',
                         'is_required' => true,
                         'options' => [
                             ['value' => 'Never Smoked'],
                             ['value' => 'Former Smoker'],
-                            ['value' => 'Current Smoker']
+                            ['value' => 'Current Smoker'],
                         ],
                         'order' => 25,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_26',
+                        'name' => 'field_'.$timestamp.'_26',
                         'label' => 'Alcohol Consumption',
                         'placeholder' => '',
                         'is_required' => true,
@@ -253,14 +253,14 @@ class MedicalFormSeeder extends Seeder
                             ['value' => 'Never'],
                             ['value' => 'Occasionally'],
                             ['value' => 'Regularly'],
-                            ['value' => 'Daily']
+                            ['value' => 'Daily'],
                         ],
                         'order' => 26,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_27',
+                        'name' => 'field_'.$timestamp.'_27',
                         'label' => 'Exercise Frequency',
                         'placeholder' => '',
                         'is_required' => true,
@@ -268,13 +268,13 @@ class MedicalFormSeeder extends Seeder
                             ['value' => 'Never'],
                             ['value' => '1-2 times per week'],
                             ['value' => '3-4 times per week'],
-                            ['value' => '5+ times per week']
+                            ['value' => '5+ times per week'],
                         ],
                         'order' => 27,
-                        'showOptions' => true
-                    ]
-                ]
-            ]
+                        'showOptions' => true,
+                    ],
+                ],
+            ],
         ];
 
         foreach ($forms as $formData) {

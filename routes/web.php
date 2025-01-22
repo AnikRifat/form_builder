@@ -4,7 +4,6 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\FormFieldController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::inertia('/', 'Home')->name('home');
 
@@ -33,10 +32,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/dashboard', function () {
-        return route('forms.index');
+        return redirect()->route('forms.index');
     })->name('dashboard');
 
-    Route::apiResource('forms', FormController::class)->except(['show']);
     Route::prefix('forms/{form}')->group(function () {
         Route::apiResource('fields', FormFieldController::class)
             ->except(['show']);

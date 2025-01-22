@@ -3,10 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Database\Seeders\AdminSeeder;
-use Database\Seeders\BasicFormSeeder;
-use Database\Seeders\BusinessFormSeeder;
-use Database\Seeders\MedicalFormSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

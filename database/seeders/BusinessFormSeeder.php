@@ -21,7 +21,7 @@ class BusinessFormSeeder extends Seeder
                     // Business Information
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_1',
+                        'name' => 'field_'.$timestamp.'_1',
                         'label' => 'Business Legal Name',
                         'placeholder' => 'Enter your business legal name',
                         'is_required' => true,
@@ -29,7 +29,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_2',
+                        'name' => 'field_'.$timestamp.'_2',
                         'label' => 'Trading Name (if different)',
                         'placeholder' => 'Enter your trading name',
                         'is_required' => false,
@@ -37,7 +37,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_3',
+                        'name' => 'field_'.$timestamp.'_3',
                         'label' => 'Business Registration Number',
                         'placeholder' => 'Enter registration number',
                         'is_required' => true,
@@ -45,7 +45,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_4',
+                        'name' => 'field_'.$timestamp.'_4',
                         'label' => 'Tax ID Number',
                         'placeholder' => 'Enter tax ID',
                         'is_required' => true,
@@ -53,7 +53,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_5',
+                        'name' => 'field_'.$timestamp.'_5',
                         'label' => 'Business Structure',
                         'placeholder' => '',
                         'is_required' => true,
@@ -62,14 +62,14 @@ class BusinessFormSeeder extends Seeder
                             ['value' => 'Partnership'],
                             ['value' => 'Limited Liability Company (LLC)'],
                             ['value' => 'Corporation'],
-                            ['value' => 'Non-Profit']
+                            ['value' => 'Non-Profit'],
                         ],
                         'order' => 5,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_6',
+                        'name' => 'field_'.$timestamp.'_6',
                         'label' => 'Years in Business',
                         'placeholder' => 'Enter number of years',
                         'is_required' => true,
@@ -77,7 +77,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_7',
+                        'name' => 'field_'.$timestamp.'_7',
                         'label' => 'Industry',
                         'placeholder' => '',
                         'is_required' => true,
@@ -89,15 +89,15 @@ class BusinessFormSeeder extends Seeder
                             ['value' => 'Construction'],
                             ['value' => 'Food & Beverage'],
                             ['value' => 'Professional Services'],
-                            ['value' => 'Other']
+                            ['value' => 'Other'],
                         ],
                         'order' => 7,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     // Contact Information
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_8',
+                        'name' => 'field_'.$timestamp.'_8',
                         'label' => 'Business Address',
                         'placeholder' => 'Enter street address',
                         'is_required' => true,
@@ -105,7 +105,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_9',
+                        'name' => 'field_'.$timestamp.'_9',
                         'label' => 'City',
                         'placeholder' => 'Enter city',
                         'is_required' => true,
@@ -113,7 +113,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_10',
+                        'name' => 'field_'.$timestamp.'_10',
                         'label' => 'State/Province',
                         'placeholder' => 'Enter state/province',
                         'is_required' => true,
@@ -121,7 +121,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_11',
+                        'name' => 'field_'.$timestamp.'_11',
                         'label' => 'Postal Code',
                         'placeholder' => 'Enter postal code',
                         'is_required' => true,
@@ -129,7 +129,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_12',
+                        'name' => 'field_'.$timestamp.'_12',
                         'label' => 'Business Phone',
                         'placeholder' => 'Enter business phone',
                         'is_required' => true,
@@ -137,7 +137,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'email',
-                        'name' => 'field_' . $timestamp . '_13',
+                        'name' => 'field_'.$timestamp.'_13',
                         'label' => 'Business Email',
                         'placeholder' => 'Enter business email',
                         'is_required' => true,
@@ -146,7 +146,7 @@ class BusinessFormSeeder extends Seeder
                     // Loan Information
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_14',
+                        'name' => 'field_'.$timestamp.'_14',
                         'label' => 'Requested Loan Amount',
                         'placeholder' => 'Enter amount in dollars',
                         'is_required' => true,
@@ -154,7 +154,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_15',
+                        'name' => 'field_'.$timestamp.'_15',
                         'label' => 'Loan Purpose',
                         'placeholder' => '',
                         'is_required' => true,
@@ -165,14 +165,14 @@ class BusinessFormSeeder extends Seeder
                             ['value' => 'Inventory'],
                             ['value' => 'Debt Refinancing'],
                             ['value' => 'Real Estate'],
-                            ['value' => 'Other']
+                            ['value' => 'Other'],
                         ],
                         'order' => 15,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_16',
+                        'name' => 'field_'.$timestamp.'_16',
                         'label' => 'Desired Loan Term',
                         'placeholder' => '',
                         'is_required' => true,
@@ -182,15 +182,15 @@ class BusinessFormSeeder extends Seeder
                             ['value' => '24 months'],
                             ['value' => '36 months'],
                             ['value' => '48 months'],
-                            ['value' => '60 months']
+                            ['value' => '60 months'],
                         ],
                         'order' => 16,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     // Financial Information
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_17',
+                        'name' => 'field_'.$timestamp.'_17',
                         'label' => 'Annual Revenue',
                         'placeholder' => 'Enter last year\'s revenue',
                         'is_required' => true,
@@ -198,7 +198,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_18',
+                        'name' => 'field_'.$timestamp.'_18',
                         'label' => 'Monthly Revenue',
                         'placeholder' => 'Enter average monthly revenue',
                         'is_required' => true,
@@ -206,7 +206,7 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_19',
+                        'name' => 'field_'.$timestamp.'_19',
                         'label' => 'Current Outstanding Loans',
                         'placeholder' => 'Enter total amount',
                         'is_required' => true,
@@ -215,7 +215,7 @@ class BusinessFormSeeder extends Seeder
                     // Additional Information
                     [
                         'type' => 'textarea',
-                        'name' => 'field_' . $timestamp . '_20',
+                        'name' => 'field_'.$timestamp.'_20',
                         'label' => 'Business Description',
                         'placeholder' => 'Describe your business operations and history',
                         'is_required' => true,
@@ -223,14 +223,14 @@ class BusinessFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'textarea',
-                        'name' => 'field_' . $timestamp . '_21',
+                        'name' => 'field_'.$timestamp.'_21',
                         'label' => 'Loan Usage Details',
                         'placeholder' => 'Explain how you plan to use the loan',
                         'is_required' => true,
                         'order' => 21,
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
 
         foreach ($forms as $formData) {

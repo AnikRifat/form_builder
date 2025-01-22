@@ -20,7 +20,7 @@ class BasicFormSeeder extends Seeder
                 'fields' => [
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_1',
+                        'name' => 'field_'.$timestamp.'_1',
                         'label' => 'Full Name',
                         'placeholder' => 'Enter your full name',
                         'is_required' => true,
@@ -28,7 +28,7 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'email',
-                        'name' => 'field_' . $timestamp . '_2',
+                        'name' => 'field_'.$timestamp.'_2',
                         'label' => 'Email Address',
                         'placeholder' => 'Enter your email',
                         'is_required' => true,
@@ -36,7 +36,7 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_3',
+                        'name' => 'field_'.$timestamp.'_3',
                         'label' => 'Phone Number',
                         'placeholder' => 'Enter your phone number',
                         'is_required' => false,
@@ -44,7 +44,7 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_4',
+                        'name' => 'field_'.$timestamp.'_4',
                         'label' => 'Department',
                         'placeholder' => '',
                         'is_required' => true,
@@ -53,14 +53,14 @@ class BasicFormSeeder extends Seeder
                             ['value' => 'Support'],
                             ['value' => 'Technical'],
                             ['value' => 'Billing'],
-                            ['value' => 'Other']
+                            ['value' => 'Other'],
                         ],
                         'order' => 4,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_5',
+                        'name' => 'field_'.$timestamp.'_5',
                         'label' => 'Priority',
                         'placeholder' => '',
                         'is_required' => true,
@@ -68,21 +68,21 @@ class BasicFormSeeder extends Seeder
                             ['value' => 'Low'],
                             ['value' => 'Medium'],
                             ['value' => 'High'],
-                            ['value' => 'Urgent']
+                            ['value' => 'Urgent'],
                         ],
                         'order' => 5,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'textarea',
-                        'name' => 'field_' . $timestamp . '_6',
+                        'name' => 'field_'.$timestamp.'_6',
                         'label' => 'Message',
                         'placeholder' => 'Please describe your inquiry in detail',
                         'is_required' => true,
                         'order' => 6,
                     ],
 
-                ]
+                ],
             ],
             [
                 'title' => 'Newsletter Subscription',
@@ -92,7 +92,7 @@ class BasicFormSeeder extends Seeder
                 'fields' => [
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_8',
+                        'name' => 'field_'.$timestamp.'_8',
                         'label' => 'Full Name',
                         'placeholder' => 'Enter your full name',
                         'is_required' => true,
@@ -100,7 +100,7 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'email',
-                        'name' => 'field_' . $timestamp . '_9',
+                        'name' => 'field_'.$timestamp.'_9',
                         'label' => 'Email Address',
                         'placeholder' => 'Enter your email',
                         'is_required' => true,
@@ -108,20 +108,20 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_10',
+                        'name' => 'field_'.$timestamp.'_10',
                         'label' => 'Email Format',
                         'placeholder' => '',
                         'is_required' => true,
                         'options' => [
                             ['value' => 'HTML'],
-                            ['value' => 'Plain Text']
+                            ['value' => 'Plain Text'],
                         ],
                         'order' => 3,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_11',
+                        'name' => 'field_'.$timestamp.'_11',
                         'label' => 'Frequency',
                         'placeholder' => '',
                         'is_required' => true,
@@ -129,13 +129,13 @@ class BasicFormSeeder extends Seeder
                             ['value' => 'Daily Digest'],
                             ['value' => 'Weekly Newsletter'],
                             ['value' => 'Monthly Updates'],
-                            ['value' => 'Quarterly Review']
+                            ['value' => 'Quarterly Review'],
                         ],
                         'order' => 4,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
 
-                ]
+                ],
             ],
             [
                 'title' => 'Event Registration',
@@ -145,7 +145,7 @@ class BasicFormSeeder extends Seeder
                 'fields' => [
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_14',
+                        'name' => 'field_'.$timestamp.'_14',
                         'label' => 'Full Name',
                         'placeholder' => 'Enter your full name',
                         'is_required' => true,
@@ -153,7 +153,7 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'email',
-                        'name' => 'field_' . $timestamp . '_15',
+                        'name' => 'field_'.$timestamp.'_15',
                         'label' => 'Email Address',
                         'placeholder' => 'Enter your email',
                         'is_required' => true,
@@ -161,7 +161,7 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_16',
+                        'name' => 'field_'.$timestamp.'_16',
                         'label' => 'Phone Number',
                         'placeholder' => 'Enter your phone number',
                         'is_required' => true,
@@ -169,7 +169,7 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'text',
-                        'name' => 'field_' . $timestamp . '_17',
+                        'name' => 'field_'.$timestamp.'_17',
                         'label' => 'Company/Organization',
                         'placeholder' => 'Enter your company name',
                         'is_required' => false,
@@ -177,7 +177,7 @@ class BasicFormSeeder extends Seeder
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_18',
+                        'name' => 'field_'.$timestamp.'_18',
                         'label' => 'Event Type',
                         'placeholder' => '',
                         'is_required' => true,
@@ -185,36 +185,36 @@ class BasicFormSeeder extends Seeder
                             ['value' => 'Conference'],
                             ['value' => 'Workshop'],
                             ['value' => 'Webinar'],
-                            ['value' => 'Training']
+                            ['value' => 'Training'],
                         ],
                         'order' => 5,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
                     [
                         'type' => 'select',
-                        'name' => 'field_' . $timestamp . '_19',
+                        'name' => 'field_'.$timestamp.'_19',
                         'label' => 'Session Time',
                         'placeholder' => '',
                         'is_required' => true,
                         'options' => [
                             ['value' => 'Morning Session (9 AM - 12 PM)'],
                             ['value' => 'Afternoon Session (2 PM - 5 PM)'],
-                            ['value' => 'Evening Session (6 PM - 9 PM)']
+                            ['value' => 'Evening Session (6 PM - 9 PM)'],
                         ],
                         'order' => 6,
-                        'showOptions' => true
+                        'showOptions' => true,
                     ],
 
                     [
                         'type' => 'textarea',
-                        'name' => 'field_' . $timestamp . '_21',
+                        'name' => 'field_'.$timestamp.'_21',
                         'label' => 'Special Requests',
                         'placeholder' => 'Enter any special requests or requirements',
                         'is_required' => false,
                         'order' => 8,
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
 
         foreach ($forms as $formData) {

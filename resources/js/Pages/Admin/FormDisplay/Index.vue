@@ -3,12 +3,24 @@
 
   <AuthenticatedLayout>
     <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto bg-white shadow sm:rounded-lg overflow-hidden form-container">
+
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+
+        <div class="overflow-hidden mx-auto max-w-3xl bg-white shadow sm:rounded-lg form-container">
           <!-- Form Header -->
           <div class="px-4 py-5 border-b border-gray-200 sm:px-6 form-header">
-            <h3 class="text-lg font-medium leading-6 text-gray-900">{{ form.title }}</h3>
-            <p class="mt-1 text-sm text-gray-500">{{ form.description }}</p>
+            <div class="mb-4">
+              <Link :href="route('forms.index')" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+                Back to Forms
+              </Link>
+            </div>
+            <div class="space-y-2">
+              <h3 class="text-xl font-semibold text-gray-900">{{ form.title }}</h3>
+              <p class="text-sm text-gray-500">{{ form.description }}</p>
+            </div>
           </div>
 
           <!-- Form Body -->
@@ -28,7 +40,7 @@
                   :type="field.type"
                   :required="field.is_required"
                   :placeholder="field.placeholder"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
+                  class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
                 />
 
                 <!-- Textarea -->
@@ -39,7 +51,7 @@
                   :required="field.is_required"
                   :placeholder="field.placeholder"
                   rows="4"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
+                  class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
                 />
 
                 <!-- Select Box -->
@@ -48,7 +60,7 @@
                   :id="field.name"
                   v-model="formData[field.name]"
                   :required="field.is_required"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
+                  class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-input"
                 >
                   <option value="" disabled>Please select an option</option>
                   <option v-for="option in field.options" :key="option.value" :value="option.value">
@@ -61,7 +73,7 @@
                   <div
                     v-for="option in field.options"
                     :key="option.value"
-                    class="relative flex items-center p-4 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 transition duration-150"
+                    class="flex relative items-center p-4 rounded-lg border border-gray-200 transition duration-150 cursor-pointer hover:bg-gray-50"
                   >
                     <input
                       :id="field.name + '-' + option.value"
@@ -70,9 +82,9 @@
                       type="radio"
                       :value="option.value"
                       :required="field.is_required"
-                      class="h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                      class="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
                     />
-                    <label :for="field.name + '-' + option.value" class="ml-3 block text-sm font-medium text-gray-700 cursor-pointer">
+                    <label :for="field.name + '-' + option.value" class="block ml-3 text-sm font-medium text-gray-700 cursor-pointer">
                       {{ option.value }}
                     </label>
                   </div>
@@ -88,7 +100,7 @@
               <div class="flex justify-end form-footer">
                 <button
                   type="submit"
-                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed submit-button"
+                  class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md border border-transparent shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed submit-button"
                   :disabled="isSubmitting"
                 >
                   {{ isSubmitting ? 'Submitting...' : 'Submit' }}
@@ -116,8 +128,8 @@
         <div class="fixed inset-0 bg-black bg-opacity-25" />
       </TransitionChild>
 
-      <div class="fixed inset-0 overflow-y-auto">
-        <div class="flex min-h-full items-center justify-center p-4 text-center">
+      <div class="overflow-y-auto fixed inset-0">
+        <div class="flex justify-center items-center p-4 min-h-full text-center">
           <TransitionChild
             as="template"
             enter="duration-300 ease-out"
@@ -127,14 +139,14 @@
             leave-from="opacity-100 scale-100"
             leave-to="opacity-0 scale-95"
           >
-            <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+            <DialogPanel class="overflow-hidden p-6 w-full max-w-md text-left align-middle bg-white rounded-2xl shadow-xl transition-all transform">
               <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
                 Form Submission
               </DialogTitle>
 
               <div class="mt-4">
                 <div class="space-y-4">
-                  <div v-for="field in form.fields" :key="field.id" class="border-b border-gray-200 pb-4">
+                  <div v-for="field in form.fields" :key="field.id" class="pb-4 border-b border-gray-200">
                     <h4 class="font-medium text-gray-700">{{ field.label }}</h4>
                     <p class="mt-1 text-sm text-gray-600">
                       {{ formatFieldValue(formData[field.name]) }}
@@ -143,10 +155,10 @@
                 </div>
               </div>
 
-              <div class="mt-6 flex justify-end">
+              <div class="flex justify-end mt-6">
                 <button
                   type="button"
-                  class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  class="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 rounded-md border border-transparent hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   @click="showModal = false"
                 >
                   Close

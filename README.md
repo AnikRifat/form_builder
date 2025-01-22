@@ -52,10 +52,16 @@ A dynamic form builder application built with Laravel, Inertia.js, and Vue.js. C
      DB_PASSWORD=your_database_password
      ```
 
-6. **Setup Database**
+6. **Default Admin Credentials**
+   ```
+   Email: admin@gmail.com
+   Password: password
+   ```
+
+7. **Setup Database**
 
 
-7. **Application Setup**
+8. **Application Setup**
    ```bash
    # Generate application key
    php artisan key:generate
@@ -64,7 +70,7 @@ A dynamic form builder application built with Laravel, Inertia.js, and Vue.js. C
    php artisan migrate:fresh --seed
    ```
 
-8. **Start Development Servers**
+9. **Start Development Servers**
    In separate terminal windows:
    ```bash
    # Start Laravel development server
@@ -79,7 +85,7 @@ A dynamic form builder application built with Laravel, Inertia.js, and Vue.js. C
    composer run dev
    ```
 
-9. **Access the Application**
+10. **Access the Application**
    - Open your browser and visit: `http://localhost:8000`
    - Default login credentials:
      - Email: `admin@example.com`

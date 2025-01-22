@@ -17,8 +17,8 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: 'admin@gmail.com',
+    password: 'password',
     remember: false,
 });
 
@@ -44,11 +44,12 @@ const submit = () => {
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="block mt-1 w-full"
                     v-model="form.email"
                     required
                     autofocus
                     autocomplete="username"
+                    value
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
@@ -60,7 +61,7 @@ const submit = () => {
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="block mt-1 w-full"
                     v-model="form.password"
                     required
                     autocomplete="current-password"
@@ -69,20 +70,20 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4 block">
+            <div class="block mt-4">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600"
+                    <span class="text-sm text-gray-600 ms-2"
                         >Remember me</span
                     >
                 </label>
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
+            <div class="flex justify-end items-center mt-4">
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     Forgot your password?
                 </Link>

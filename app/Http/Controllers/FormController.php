@@ -101,7 +101,7 @@ class FormController extends Controller
     {
         return Inertia::render('Admin/FormDisplay/Index', [
             'form' => $form->load('fields'),
-            'config' => $form->config // Assuming there's a config field in the Form model
+            'config' => $form->config, // Assuming there's a config field in the Form model
         ]);
     }
 
