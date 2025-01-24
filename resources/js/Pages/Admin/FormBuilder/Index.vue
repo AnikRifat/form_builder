@@ -286,26 +286,42 @@
                                 </div>
 
                                 <Transition name="fade" mode="out-in">
-                                    <div v-if="isJsonEditorVisible" class="mt-4">
-                                        <textarea v-model="jsonConfig" class="p-4 w-full bg-gray-100 rounded"
-                                            rows="20"></textarea>
-                                        <div class="mt-4 space-y-2">
-                                            <div v-if="jsonError"
-                                                class="p-3 text-sm text-red-700 bg-red-50 rounded-md border border-red-200">
-                                                <strong class="font-medium">Error:</strong> {{ jsonError }}
+                                    <div v-if="isJsonEditorVisible" class="mb-6 space-y-4">
+                                        <div class="p-6 bg-white rounded-xl border border-gray-100 shadow-sm">
+                                            <div class="space-y-4">
+                                                <!-- JSON Editor -->
+                                                <div class="space-y-2">
+                                                    <label class="block text-sm font-medium text-gray-700">JSON Configuration</label>
+                                                    <textarea
+                                                        v-model="jsonConfig"
+                                                        rows="20"
+                                                        class="block w-full font-mono text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                                    ></textarea>
+                                                </div>
+
+                                                <!-- JSON Validation Errors -->
+                                                <div v-if="jsonError" class="p-4 text-sm text-red-700 bg-red-50 rounded-lg">
+                                                    {{ jsonError }}
+                                                </div>
+
+                                                <!-- JSON Warnings -->
+                                                <div v-if="jsonWarnings.length > 0" class="p-4 text-sm text-yellow-700 bg-yellow-50 rounded-lg">
+                                                    <ul class="list-disc list-inside">
+                                                        <li v-for="warning in jsonWarnings" :key="warning">{{ warning }}</li>
+                                                    </ul>
+                                                </div>
+
+                                                <!-- Reset Button -->
+                                                <div class="flex justify-end">
+                                                    <button
+                                                        @click="resetJsonConfig"
+                                                        type="button"
+                                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg border border-gray-300 shadow-sm hover:bg-gray-50"
+                                                    >
+                                                        Reset Changes
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div v-if="jsonWarnings.length > 0"
-                                                class="p-3 text-sm text-yellow-700 bg-yellow-50 rounded-md border border-yellow-200">
-                                                <strong class="font-medium">Warnings:</strong>
-                                                <ul class="mt-1 ml-4 list-disc">
-                                                    <li v-for="(warning, index) in jsonWarnings" :key="index">{{ warning
-                                                        }}</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-end mt-4 space-x-4">
-                                            <button @click="resetJsonConfig"
-                                                class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Reset</button>
                                         </div>
                                     </div>
                                 </Transition>

@@ -156,6 +156,47 @@ export const useFormBuilder = (props: { form: Form }) => {
         showJsonConfig();
     };
 
+    const updateJsonConfig = () => {
+        try {
+            // Parse and validate the JSON
+            const parsedConfig = JSON.parse(jsonConfig.value);
+            
+            // Validate required fields
+            if (!parsedConfig.title) {
+                jsonError.value = 'Form title is required';
+                return false;
+            }
+            
+            // Clear any previous errors
+            jsonError.value = '';
+            jsonWarnings.value = [];
+            
+            // Update form state with new values
+            form.value = {
+                ...form.value,
+                ...parsedConfig,
+                fields: parsedConfig.fields.map((field: any, index: number) => ({
+                    ...field,
+                    id: field.id || Date.now() + index,
+                    order: index + 1,
+                    showOptions: Boolean(field.options?.length)
+                }))
+            };
+            
+            return true;
+        } catch (error) {
+            jsonError.value = 'Invalid JSON format';
+            return false;
+        }
+    };
+
+    // Watch for JSON changes
+    watch(jsonConfig, () => {
+        if (isJsonEditorVisible.value) {
+            updateJsonConfig();
+        }
+    });
+
     const saveForm = async () => {
         if (!form.value.title) {
             alert('Please enter a form title');
